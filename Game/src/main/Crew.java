@@ -14,22 +14,27 @@ public class Crew {
 	}
 	
 	public void repair(){
+		//increase the ship's shield level
 		return;
 	}
 	
 	public void search(){
+		//a crew member may find food or medical item, transporter part, money or nothing
 		return;
 	}
 	
 	public void pilot(){
+		//two crew members are needed, set piloting of the two crew members to true and decrese action count, change location
 		return;
 	}
 	
 	public void sleep(){
+		//decrease tiredness
 		return;
 	}
 	
 	public void consumeItem(){
+		//let the player choose what item to use, use the item
 		return;
 	}
 	
