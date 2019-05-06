@@ -6,8 +6,14 @@ public class Crew {
 	private int searchProficiency;
 	private String name;
 	private int tiredness;
-	boolean sick;
+	boolean sick;//are these two variables not meant to be private?
 	boolean piolting;
+	private int hunger;
+	private int hungerRate;
+	private int healthrate;
+	private int tirednessRate;
+	private int itemEffectiveness;
+	private int actions;
 	
 	public String viewStatus(){
 		return;
@@ -47,12 +53,16 @@ public class Crew {
 		return;
 	}
 	
-	public int  getFatigue(){
+	public int getFatigue(){
 		return tiredness;
 	}
 	
 	public void setFatigue(int value){
 		this.tiredness = value;
 		return;
+	}
+	
+	public void setActions() {
+		this.actions = 2;
 	}
 }
