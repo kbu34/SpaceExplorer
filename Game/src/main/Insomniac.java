@@ -2,7 +2,7 @@ package main;
 
 /**
  * 
- * This class implements one of the subclasses of Crew, insomiac. 
+ * This class implements one of the subclasses of Crew, insomniac. 
  *
  */
 public class Insomniac extends Crew {
