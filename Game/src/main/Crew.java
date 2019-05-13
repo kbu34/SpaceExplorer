@@ -11,15 +11,34 @@ public class Crew {
 	private int searchProficiency;
 	private String name;
 	private int tiredness;
-	boolean sick;//are these two variables not meant to be private?
-	boolean piolting;
+	private boolean sick;//are these two variables not meant to be private?
+	private boolean piolting;
 	private int hunger;
 	private int hungerRate;
-	private int healthrate;
+	private int healthRate;
 	private int tirednessRate;
 	private int itemEffectiveness;
 	private int actions;
 	
+
+	
+	public Crew(String name, int health, int shieldRepairValue, int searchProficiency, int healthRate, int tirednessRate, int itemEffectiveness) {
+		
+		this.name = name;
+		this.health = health;
+		this.shieldRepairValue = shieldRepairValue;
+		this.searchProficiency = searchProficiency;
+		this.healthRate = healthRate;
+		this.tirednessRate = tirednessRate;
+		this.itemEffectiveness = itemEffectiveness;
+		this.hungerRate = 3;
+		this.tiredness = 0;
+		this.hunger = 0;
+		this.sick = false;
+		this.piolting = false;
+		this.actions = 2;
+	
+	}
 	/**
 	 * Lets the player view the status of the spaceship.
 	 * 
@@ -109,3 +128,5 @@ public class Crew {
 		this.actions = 2;
 	}
 }
+
+
