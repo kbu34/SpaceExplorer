@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Random;
+
 /**
  * 
  * This class implements the events in the game.
@@ -30,6 +32,15 @@ public class Game {
 	 * Pick an event by random, the player should be alerted of the event.
 	 */
 	public void eventPicker() {
+		Random rand = new Random();
+		int e = rand.nextInt(10);
+		if (e == 1) {
+			astroidBelt();
+		} else if (e == 2) {
+			pirates();
+		} else if (e == 3) {
+			plague();
+		}
 		return;
 	}
 	
@@ -37,6 +48,7 @@ public class Game {
 	 * Decreases shield level of the ship.
 	 */
 	public void astroidBelt() { 
+		Spaceship.shield -= 1;
 		return;
 	}
 	
@@ -44,6 +56,9 @@ public class Game {
 	 * Removes random item.
 	 */
 	public void pirates() {
+		Random rand = new Random();
+		int i = rand.nextInt(Spaceship.lenInventory());
+		Spaceship.removeItem(Spaceship.inventoryGetter(i));
 		return;
 	}
 	
@@ -52,6 +67,14 @@ public class Game {
 	 */
 	public void plague() {
 		return;
+	}
+	
+	/**
+	 * Returns the current location of the spaceship
+	 * 
+	 */
+	public int getSpaceshipLocation() {
+		return spaceshipLocation;
 	}
 
 }

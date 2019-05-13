@@ -73,8 +73,23 @@ public class Spaceship {
 	 * Remove to from the inventory.
 	 * @param item the item used or lost
 	 */
-	public void removeItem(Item item){
-		return;
+	public static void removeItem(Item item){
+		inventory.remove(item);
+	}
+	
+	/**
+	 * Shows the size of he inventory.
+	 */
+	public static int lenInventory() {
+		return inventory.size();
+	}
+	
+	/**
+	 * Returns the item in inventory.
+	 * @param i the index specified  
+	 */
+	public static Item inventoryGetter(int i) {
+		return inventory.get(i);
 	}
 
 	public static void main(String[] args) {
