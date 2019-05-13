@@ -5,14 +5,15 @@ package main;
  * This class implements crew members that are playable in the game.
  *
  */
+// maybe we also need a method for taking damage?
 public class Crew {
 	private int health;
 	private int shieldRepairValue;
 	private int searchProficiency;
 	private String name;
 	private int tiredness;
-	boolean sick;//are these two variables not meant to be private?
-	boolean piolting;
+	private boolean sick;
+	private boolean piolting;
 	private int hunger;
 	private int hungerRate;
 	private int healthrate;
@@ -32,7 +33,8 @@ public class Crew {
 	 * Increases the ship's shield level. Decrease member actions by one.
 	 */
 	public void repair(){
-		shieldRepairValue += 1;
+		Spaceship.shield += this.shieldRepairValue;
+		this.actions -= 1;
 		return;
 	}
 	
@@ -42,6 +44,8 @@ public class Crew {
 	 * A crew member may find food or medical item, transporter part, money or nothing
 	 */
 	public void search(){
+		
+		this.actions -= 1;
 		return;
 	}
 	
@@ -58,6 +62,8 @@ public class Crew {
 	 * Decrease tiredness of the member. Decrease member actions by one.
 	 */
 	public void sleep(){
+		
+		this.actions -= 1;
 		return;
 	}
 	
@@ -65,6 +71,8 @@ public class Crew {
 	 * Let the player choose what item to use, use the item. Decrease member actions by one.
 	 */
 	public void consumeItem(){
+		
+		this.actions -= 1;
 		return;
 	}
 	

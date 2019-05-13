@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Spaceship {
 	private ArrayList<Crew> crew;
-	private ArrayList<Item> inventory;
+	private static ArrayList<Item> inventory;
 	private int shield;
 	private int money;
 	
@@ -48,14 +48,29 @@ public class Spaceship {
 	 * @param item the item obtained
 	 */
 	public void addItem(Item item){
-		return;
+		inventory.add(item);
 	}
 	
 	/**
 	 * Remove to from the inventory.
 	 * @param item the item used or lost
 	 */
-	public void removeItem(Item item){
-		return;
+	public static void removeItem(Item item){
+		inventory.remove(item);
+	}
+	
+	/**
+	 * Shows the size of he inventory.
+	 */
+	public static int lenInventory() {
+		return inventory.size();
+	}
+	
+	/**
+	 * Returns the item in inventory.
+	 * @param i the index specified  
+	 */
+	public static Item inventoryGetter(int i) {
+		return inventory.get(i);
 	}
 }
