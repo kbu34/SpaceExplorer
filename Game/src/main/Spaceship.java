@@ -26,8 +26,13 @@ public class Spaceship {
 	/**
 	 * Shows the crew member status.
 	 */
-	public void getCrew(){
-		return;
+	public String getCrew(){
+		String names = "";
+		for(Crew crewMember: crew) {
+			names += crewMember.getName() + '\n';
+			
+		}
+		return names;
 	}
 	
 	/**
@@ -96,7 +101,11 @@ public class Spaceship {
 		
 		Spaceship mySpaceship = new Spaceship("Discovery");
 		Gnome bob = new Gnome("bob");
+		Gnome joe = new Gnome("joe");
+		
+		mySpaceship.addCrew(joe);
 		mySpaceship.addCrew(bob);
-		System.out.print("My Spaceship " + mySpaceship.getName() + " has " + mySpaceship.getShield() + " Shield.");
+		System.out.print("My Spaceship " + mySpaceship.getName() + " has " + mySpaceship.getShield() + " Shield.\n");
+		System.out.print("The Crew are:\n" + mySpaceship.getCrew());
 	}
 }

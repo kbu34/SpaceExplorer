@@ -135,6 +135,10 @@ public class Crew {
 	public void setActions() {
 		this.actions = 2;
 	}
+	
+	public String getName() {
+		return this.name;
+	}
 }
 
 
