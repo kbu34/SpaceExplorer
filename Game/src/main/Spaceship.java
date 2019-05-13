@@ -8,22 +8,40 @@ import java.util.ArrayList;
  *
  */
 public class Spaceship {
+	private String name;
 	private ArrayList<Crew> crew;
-	private static ArrayList<Item> inventory;
-	private int shield;
+	private ArrayList<Item> inventory;
+	private int shield = 100;
 	private int money;
 	
+	public Spaceship(String name) {
+		this.name = name;
+		crew = new ArrayList<Crew>();
+		inventory = new ArrayList<Item>();
+	}
+	
+	public String getName() {
+		return this.name;
+	}
 	/**
 	 * Shows the crew member status.
 	 */
-	public void viewCrew(){
+	public void getCrew(){
 		return;
+	}
+	
+	/**
+	 * Adds crew member
+	 * @param crew member to be added
+	 */
+	public void addCrew(Crew crewMember) {
+		crew.add(crewMember);
 	}
 	
 	/**
 	 * Shows the item inventory.
 	 */
-	public void viewInventory(){
+	public void getInventory(){
 		return;
 	}
 	
@@ -31,7 +49,7 @@ public class Spaceship {
 	 * Shows the amount of money the player has.
 	 * @return money player's money
 	 */
-	public int viewMoney(){
+	public int getMoney(){
 		return money;
 	}
 	
@@ -39,7 +57,7 @@ public class Spaceship {
 	 * Shows the spaceship's shield level.
 	 * @return shield the spaceship's shield level
 	 */
-	public int viewShield(){
+	public int getShield(){
 		return shield;
 	}
 	
@@ -72,5 +90,13 @@ public class Spaceship {
 	 */
 	public static Item inventoryGetter(int i) {
 		return inventory.get(i);
+	}
+
+	public static void main(String[] args) {
+		
+		Spaceship mySpaceship = new Spaceship("Discovery");
+		Gnome bob = new Gnome("bob");
+		mySpaceship.addCrew(bob);
+		System.out.print("My Spaceship " + mySpaceship.getName() + " has " + mySpaceship.getShield() + " Shield.");
 	}
 }
