@@ -22,7 +22,16 @@ public class Crew {
 	private int actions;
 	
 
-	
+	/**
+	 * Constructor for the Crew class.
+	 * @param name name of the crew
+	 * @param health health of the crew
+	 * @param shieldRepairValue value of how much shield a crew member can repair at a time
+	 * @param searchProficiency value of how good a crew member is at searching for items
+	 * @param healthRate 
+	 * @param tirednessRate
+	 * @param itemEffectiveness
+	 */
 	public Crew(String name, int health, int shieldRepairValue, int searchProficiency, int healthRate, int tirednessRate, int itemEffectiveness) {
 		
 		this.name = name;
@@ -40,6 +49,7 @@ public class Crew {
 		this.actions = 2;
 	
 	}
+	
 	/**
 	 * Lets the player view the status of the spaceship.
 	 * 
