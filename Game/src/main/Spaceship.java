@@ -83,7 +83,7 @@ public class Spaceship {
 	}
 	
 	/**
-	 * Shows the size of he inventory.
+	 * Shows the size of the inventory.
 	 */
 	public int lenInventory() {
 		return inventory.size();

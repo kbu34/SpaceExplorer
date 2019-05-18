@@ -114,7 +114,7 @@ public class Crew {
 	}
 	
 	/**
-	 * sets crew member health according to value.
+	 * Sets crew member health according to value.
 	 * @param value the health value given
 	 */
 	public void setHealth(int value){
