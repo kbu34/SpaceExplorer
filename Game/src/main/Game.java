@@ -25,6 +25,12 @@ public class Game {
 		String spaceshipName = input.nextLine();
 		System.out.println(spaceshipName);
 		mySpaceship = new Spaceship(spaceshipName);
+		System.out.println("Enter the number of crew(2-4)");
+		int numberOfCrew = input.nextInt();
+		while(numberOfCrew != 0) {
+			pickCrew();
+			numberOfCrew -= 1;
+		}
 	}
 	
 	/**
@@ -61,10 +67,10 @@ public class Game {
 	/**
 	 * Removes random item.
 	 */
-	public void pirates(Spaceship mySpaceship) {
+	public void pirates() {
 		Random rand = new Random();
-		int i = rand.nextInt(mySpaceship.lenInventory());
-		mySpaceship.removeItem(mySpaceship.inventoryGetter(i));
+		int i = rand.nextInt(this.mySpaceship.lenInventory());
+		this.mySpaceship.removeItem(this.mySpaceship.inventoryGetter(i));
 		return;
 	}
 	

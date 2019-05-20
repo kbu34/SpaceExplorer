@@ -24,8 +24,8 @@ public class Crew {
 
 	/**
 	 * Constructor for the Crew class.
-	 * @param name name of the crew
-	 * @param health health of the crew
+	 * @param name name of the crew member
+	 * @param health health of the crew member
 	 * @param shieldRepairValue value of how much shield a crew member can repair at a time
 	 * @param searchProficiency value of how good a crew member is at searching for items
 	 * @param healthRate 
