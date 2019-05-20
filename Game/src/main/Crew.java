@@ -1,11 +1,12 @@
 package main;
 
+import java.util.Random;
+
 /**
  * 
  * This class implements crew members that are playable in the game.
  *
  */
-// maybe we also need a method for taking damage?
 public class Crew {
 	private int health;
 	private int shieldRepairValue;
@@ -51,18 +52,22 @@ public class Crew {
 	}
 	
 	/**
-	 * Lets the player view the status of the spaceship.
+	 * Lets the player view the status of the spaceship and crew members.
 	 * 
 	 */
 	public String viewStatus(){
-		return;
+		String stringHealth = Integer.toString(this.health);
+		String stringHunger = Integer.toString(this.hunger);
+		String stringSick = Boolean.toString(this.sick);
+		String stringActions = Integer.toString(this.actions);
+		return "Crew member name: " + this.name + "\nCurrent health: " + stringHealth + "\nCurrent hunger: " + stringHunger + "\nCurrently sick: " + stringSick + "\nActions left: " + stringActions;
 	}
 
 	/**
 	 * Increases the ship's shield level. Decrease member actions by one.
 	 */
-	public void repair(){
-		Spaceship.shield += this.shieldRepairValue;
+	public void repair(Spaceship mySpaceship){
+		mySpaceship.setShield(mySpaceship.getShield() + this.shieldRepairValue);
 		this.actions -= 1;
 		return;
 	}
@@ -72,8 +77,37 @@ public class Crew {
 	 * 
 	 * A crew member may find food or medical item, transporter part, money or nothing
 	 */
-	public void search(){
-		
+	public void search(Spaceship mySpaceship, Game game){
+		Random rand = new Random();
+		int i = rand.nextInt(20);
+		if (i == 1) {
+			mySpaceship.setMoney(mySpaceship.getMoney() + 99999);
+		} else if (i == 2 || i == 3) {
+			Pie pie = new Pie();
+			mySpaceship.addItem(pie);
+			System.out.println("pie found");
+		} else if (i == 4 || i == 5) {
+			Apple apple = new Apple();
+			mySpaceship.addItem(apple);
+			System.out.println("apple found");
+		} else if (i == 6) {
+			PorkChops porkChops = new PorkChops();
+			mySpaceship.addItem(porkChops);
+			System.out.println("pork chops found");
+		} else if (i == 7) {
+			Paracetamol paracetamol = new Paracetamol();
+			mySpaceship.addItem(paracetamol);
+			System.out.println("paracetamol found");
+		} else if (i == 8 || i == 9 || i == 10) {
+			Codeine codeine = new Codeine();
+			mySpaceship.addItem(codeine);
+			System.out.println("codeine found");
+		} else if (game.getPartFound() == true && i == 9 || i == 10 || i == 11) {
+			game.partFound();
+			System.out.println("transporter piece found");
+		} else {
+			System.out.println("you found nothing");
+		}
 		this.actions -= 1;
 		return;
 	}
@@ -83,15 +117,17 @@ public class Crew {
 	 * 
 	 * Two crew members are required, set piloting of the two crew members to true and decrease action count, change location.
 	 */
-	public void pilot(){
-		return;
+	public void pilot(Crew other, Game game){
+		game.nextPlanet();
+		this.actions -= 1;
+		other.actions -= 1;
 	}
 	
 	/**
 	 * Decrease tiredness of the member. Decrease member actions by one.
 	 */
 	public void sleep(){
-		
+		this.tiredness -= 10;
 		this.actions -= 1;
 		return;
 	}
@@ -106,11 +142,47 @@ public class Crew {
 	}
 	
 	/**
+	 * Makes a crew member sick'
+	 */
+	public void sickened() {
+		this.sick = true;
+	}
+	
+	/**
+	 * Cures a crew member from space plague.
+	 */
+	public void cured() {
+		this.sick = false;
+	}
+	
+	/**
+	 * Checks if a crew member is sick.
+	 * 
+	 */
+	public boolean getSickness() {
+		return this.sick;
+	}
+	
+	/**
 	 * Returns health.
 	 * @return health
 	 */
-	public int getHealth(){
+	public int getHealth() {
 		return health;
+	}
+	
+	/**
+	 * Does damage to a crew member.
+	 * They die if their health drops below 0.
+	 * @param damage damage taken by crew member
+	 * @param mySpaceship the spaceship
+	 */
+	public void damage(int damage, Spaceship mySpaceship) {
+		this.health -= damage;
+		if (this.health > 0) {
+			mySpaceship.removeMember(this);
+			System.out.println(this.name + " died.");
+		}
 	}
 	
 	/**
@@ -146,6 +218,18 @@ public class Crew {
 		this.actions = 2;
 	}
 	
+	/**
+	 * Returns the number of actions a crew member has left.
+	 * @return
+	 */
+	public int getActions() {
+		return this.actions;
+	}
+	
+	/**
+	 * Returns the crew member's name.
+	 * @return
+	 */
 	public String getName() {
 		return this.name;
 	}

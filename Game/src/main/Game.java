@@ -14,37 +14,82 @@ public class Game {
 	private int turnNum;
 	private int totalParts;
 	private int partsAquired;
+	private boolean partFoundHere;
 	private Spaceship mySpaceship;
+	private Crew member;
     Scanner input = new Scanner(System.in);
+    Random rand = new Random();
 	
 	/**
 	 * Starts the game.
 	 */
 	public void startGame() {
-		System.out.println("Enter a name for your spaceship");
-		String spaceshipName = input.nextLine();
-		System.out.println(spaceshipName);
-		mySpaceship = new Spaceship(spaceshipName);
+		System.out.println("How many days would you like the game to last?");
+		gameLength = input.nextInt();
+		input.nextLine();
+		double doubleLength = gameLength;
+		double doubleParts = (doubleLength / 3) * 2;
+		totalParts = (int) doubleParts;
+		mySpaceship = new Spaceship();
 		System.out.println("Enter the number of crew(2-4)");
 		int numberOfCrew = input.nextInt();
 		while(numberOfCrew != 0) {
 			pickCrew();
 			numberOfCrew -= 1;
 		}
+		System.out.println("Enter a name for your spaceship");
+		String spaceshipName = input.nextLine();
+		System.out.println(spaceshipName);
+		mySpaceship.setName(spaceshipName);
+		partsAquired = 0;
+		turnNum = 1;
+		spaceshipLocation = 1;
+		partFoundHere = false;
 	}
 	
 	/**
-	 * Reset action count of the crew, maybe decrease gameLength.
+	 * Lets the user pick the crew member they want.
+	 */
+	public void pickCrew() {
+		System.out.println("Enter the type of crew member you want");
+		int crewNum = input.nextInt();
+		input.nextLine();
+		System.out.println("Enter the crew member's name");
+		String name = input.nextLine();
+		if (crewNum == 1) {
+			member = new Tank(name);
+		} else if (crewNum == 2) {
+			member = new Consumer(name);
+		} else if (crewNum == 3) {
+			member = new RepairExpert(name);
+		} else if (crewNum == 4) {
+			member = new SearchExpert(name);
+		} else if (crewNum == 5) {
+			member = new Gnome(name);
+		} else if (crewNum == 6) {
+			member = new Insomniac(name);
+		}
+		mySpaceship.addCrew(member);
+		member.setActions();
+	}
+	
+	/**
+	 * Sick crew members will take damage and action count will be reset for all remaining crew members.
 	 */
 	public void nextTurn() {
-		return;
+		mySpaceship.sicknessCheck();
+		mySpaceship.crewActionReset();
+		if (turnNum == gameLength) {
+			gameOver();
+		} else {
+			turnNum += 1;
+		}
 	}
 	
 	/**
 	 * Pick an event by random, the player should be alerted of the event.
 	 */
 	public void eventPicker() {
-		Random rand = new Random();
 		int e = rand.nextInt(10);
 		if (e == 1) {
 			astroidBelt();
@@ -60,15 +105,15 @@ public class Game {
 	 * Decreases shield level of the ship.
 	 */
 	public void astroidBelt() { 
+		System.out.println("Going though an astoid belt");
 		mySpaceship.setShield(mySpaceship.getShield() - 30);
-		return;
 	}
 	
 	/**
 	 * Removes random item.
 	 */
 	public void pirates() {
-		Random rand = new Random();
+		System.out.println("pirate invasion");
 		int i = rand.nextInt(this.mySpaceship.lenInventory());
 		this.mySpaceship.removeItem(this.mySpaceship.inventoryGetter(i));
 		return;
@@ -78,7 +123,12 @@ public class Game {
 	 * Makes one or more crew members sick, sick crew members lose health everyday until cured with medicine.
 	 */
 	public void plague() {
-		return;
+		System.out.println("space plague");
+		int sickPeople = rand.nextInt(mySpaceship.crewLen());
+		for (int i = sickPeople; i > 0; i--) {
+			int sickPerson = rand.nextInt(mySpaceship.crewLen());
+			mySpaceship.getSick(sickPerson);
+		}
 	}
 	
 	/**
@@ -89,9 +139,38 @@ public class Game {
 		return spaceshipLocation;
 	}
 	
+	/**
+	 * Returns if a transporter piece was found on this planet. 
+	 * @return
+	 */
+	public boolean getPartFound() {
+		return this.partFoundHere;
+	}
+	
+	/**
+	 * Should be called when a new piece of transporter is found.
+	 * Checks if all parts are found.
+	 */
+	public void partFound() {
+		this.partsAquired += 1;
+		this.partFoundHere = true;
+		if (partsAquired == totalParts) {
+			gameOver();
+		}
+	}
+	
+	/**
+	 * Changes the location of the spaceship.
+	 */
+	public void nextPlanet() {
+		this.partFoundHere = false;
+		this.spaceshipLocation += 1;
+	}
+	
 	public static void main(String[] args) {
 		Game game = new Game();
 		game.startGame();
+		System.out.println(game.mySpaceship.getCrew());
 	}
 
 }

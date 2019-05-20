@@ -12,27 +12,47 @@ public class Spaceship {
 	private ArrayList<Crew> crew;
 	private ArrayList<Item> inventory;
 	private int shield = 100;
-	private int money;
+	private int money = 1000;
 	
-	public Spaceship(String name) {
-		this.name = name;
+	public Spaceship() {
 		crew = new ArrayList<Crew>();
 		inventory = new ArrayList<Item>();
 	}
 	
+	/**
+	 * Changes the spaceship's name.
+	 * @param name name of the spaceship
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * returns the name of the spaceship.
+	 * 
+	 */
 	public String getName() {
 		return this.name;
 	}
+	
 	/**
-	 * Shows the crew member status.
+	 * Shows the crew member names.
 	 */
-	public String getCrew(){
+	public String getCrew() {
 		String names = "";
 		for(Crew crewMember: crew) {
 			names += crewMember.getName() + '\n';
 			
 		}
 		return names;
+	}
+	
+	/**
+	 * Returns the number of surviving crew members.
+	 * 
+	 */
+	public int crewLen() {
+		return this.crew.size();
 	}
 	
 	/**
@@ -46,8 +66,21 @@ public class Spaceship {
 	/**
 	 * Shows the item inventory.
 	 */
-	public void getInventory(){
-		return;
+	public String getInventory(){
+		String names = "";
+		for (Item item : inventory) {
+			names += item.getName() + '\n';
+			
+		}
+		return names;
+	}
+	
+	/**
+	 * Changes the amount of money the crew has.
+	 * @param money new amount of money
+	 */
+	public void setMoney(int money) {
+		this.money = money;
 	}
 	
 	/**
@@ -66,6 +99,10 @@ public class Spaceship {
 		return shield;
 	}
 	
+	/**
+	 * Changes the shield level of the spaceship.
+	 * @param shield new shield level of the spaceship
+	 */
 	public void setShield(int shield) {
 		this.shield = shield;
 	}
@@ -99,10 +136,51 @@ public class Spaceship {
 	public Item inventoryGetter(int i) {
 		return inventory.get(i);
 	}
+	
+	/**
+	 * Resets the number of actions the crew members can take.
+	 */
+	public void crewActionReset() {
+		for (int i = 0; i < crew.size(); i++) {
+			Crew member = crew.get(i);
+			member.setActions();
+		}
+	}
+	
+	/**
+	 * Checks if any of the crew members are sick and does damage if they are.
+	 */
+	public void sicknessCheck() {
+		for (int i = 0; i < crew.size(); i++) {
+			Crew member = crew.get(i);
+			if (member.getSickness() == true) {
+				member.damage(10, this);
+			}
+		}
+	}
+	
+	/**
+	 * Removes the crew member from the crew.
+	 * @param member crew member being removed
+	 */
+	public void removeMember(Crew member) {
+		crew.remove(member);
+	}
+	
+	/**
+	 * Makes a crew member sick.
+	 * @param sickPerson index of the person getting sick
+	 */
+	public void getSick(int sickPerson) {
+		Crew member = crew.get(sickPerson);
+		member.sickened();
+	}
+
 
 	public static void main(String[] args) {
 		
-		Spaceship mySpaceship = new Spaceship("Discovery");
+		Spaceship mySpaceship = new Spaceship();
+		mySpaceship.setName("Discovery");
 		Gnome bob = new Gnome("bob");
 		Gnome joe = new Gnome("joe");
 		
