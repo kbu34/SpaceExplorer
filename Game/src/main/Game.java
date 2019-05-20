@@ -1,6 +1,7 @@
 package main;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * 
@@ -13,12 +14,17 @@ public class Game {
 	private int turnNum;
 	private int totalParts;
 	private int partsAquired;
+	private Spaceship mySpaceship;
+    Scanner input = new Scanner(System.in);
 	
 	/**
 	 * Starts the game.
 	 */
 	public void startGame() {
-		return;
+		System.out.println("Enter a name for your spaceship");
+		String spaceshipName = input.nextLine();
+		System.out.println(spaceshipName);
+		mySpaceship = new Spaceship(spaceshipName);
 	}
 	
 	/**
@@ -48,17 +54,17 @@ public class Game {
 	 * Decreases shield level of the ship.
 	 */
 	public void astroidBelt() { 
-		Spaceship.shield -= 1;
+		mySpaceship.setShield(mySpaceship.getShield() - 30);
 		return;
 	}
 	
 	/**
 	 * Removes random item.
 	 */
-	public void pirates() {
+	public void pirates(Spaceship mySpaceship) {
 		Random rand = new Random();
-		int i = rand.nextInt(Spaceship.lenInventory());
-		Spaceship.removeItem(Spaceship.inventoryGetter(i));
+		int i = rand.nextInt(mySpaceship.lenInventory());
+		mySpaceship.removeItem(mySpaceship.inventoryGetter(i));
 		return;
 	}
 	
@@ -75,6 +81,11 @@ public class Game {
 	 */
 	public int getSpaceshipLocation() {
 		return spaceshipLocation;
+	}
+	
+	public static void main(String[] args) {
+		Game game = new Game();
+		game.startGame();
 	}
 
 }

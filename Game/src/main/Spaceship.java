@@ -66,6 +66,9 @@ public class Spaceship {
 		return shield;
 	}
 	
+	public void setShield(int shield) {
+		this.shield = shield;
+	}
 	/**
 	 * Adds item to the inventory.
 	 * @param item the item obtained
