@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * 
@@ -12,7 +13,9 @@ public class Spaceship {
 	private ArrayList<Crew> crew;
 	private ArrayList<Item> inventory;
 	private int shield = 100;
+	private int health = 100;
 	private int money = 1000;
+	Scanner input = new Scanner(System.in);
 	
 	public Spaceship() {
 		crew = new ArrayList<Crew>();
@@ -174,6 +177,50 @@ public class Spaceship {
 	public void getSick(int sickPerson) {
 		Crew member = crew.get(sickPerson);
 		member.sickened();
+	}
+	
+	public void setHealth(int healthChange) {
+		this.health = healthChange;
+	}
+	
+	public int getHealth() {
+		return this.health;
+	}
+	
+	public void outpost() {
+		System.out.println("Items for sale:");
+		System.out.println("1.Pizza (Effect: reduces hunger by 20. Price: 20");
+		System.out.println("2.Diazepam (Effect: heals user by 20. Price: 20");
+		System.out.println("3.Plague Medicine (Effect: cures space plague. Price: 50");
+		System.out.println("Current inventory:");
+		for (Item mainItem : inventory) {
+			int count = 0;
+			for (Item item : inventory) {
+				if (mainItem == item) {
+					count += 1;
+				}
+			}
+			System.out.println(mainItem.getName() + ": " + count);
+		}
+		System.out.println("Money: " + money);
+		System.out.println("Which item would you like to buy?(enter any other number to exit");
+		boolean done = false;
+		int order = input.nextInt();
+		input.nextLine();
+		while (done == false) {
+			if (order == 1) {
+				Pizza pizza = new Pizza();
+				pizza.buyItem();
+			} else if (order == 2) {
+				Diazepam diazepam = new Diazepam();
+				diazepam.buyItem();
+			} else if (order == 3) {
+				PlagueMedicine plagueMedicine = new PlagueMedicine();
+				plagueMedicine.buyItem();
+			} else {
+				done = true;
+			}
+		}
 	}
 
 

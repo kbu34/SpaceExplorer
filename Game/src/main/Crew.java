@@ -78,37 +78,41 @@ public class Crew {
 	 * A crew member may find food or medical item, transporter part, money or nothing
 	 */
 	public void search(Spaceship mySpaceship, Game game){
-		Random rand = new Random();
-		int i = rand.nextInt(20);
-		if (i == 1) {
-			mySpaceship.setMoney(mySpaceship.getMoney() + 99999);
-		} else if (i == 2 || i == 3) {
-			Pie pie = new Pie();
-			mySpaceship.addItem(pie);
-			System.out.println("pie found");
-		} else if (i == 4 || i == 5) {
-			Apple apple = new Apple();
-			mySpaceship.addItem(apple);
-			System.out.println("apple found");
-		} else if (i == 6) {
-			PorkChops porkChops = new PorkChops();
-			mySpaceship.addItem(porkChops);
-			System.out.println("pork chops found");
-		} else if (i == 7) {
-			Paracetamol paracetamol = new Paracetamol();
-			mySpaceship.addItem(paracetamol);
-			System.out.println("paracetamol found");
-		} else if (i == 8 || i == 9 || i == 10) {
-			Codeine codeine = new Codeine();
-			mySpaceship.addItem(codeine);
-			System.out.println("codeine found");
-		} else if (game.getPartFound() == true && i == 9 || i == 10 || i == 11) {
-			game.partFound();
-			System.out.println("transporter piece found");
+		if (this.actions > 0) {
+			Random rand = new Random();
+			int i = rand.nextInt(20);
+			if (i == 1) {
+				mySpaceship.setMoney(mySpaceship.getMoney() + 99999);
+			} else if (i == 2 || i == 3) {
+				Pie pie = new Pie();
+				mySpaceship.addItem(pie);
+				System.out.println("pie found");
+			} else if (i == 4 || i == 5) {
+				Apple apple = new Apple();
+				mySpaceship.addItem(apple);
+				System.out.println("apple found");
+			} else if (i == 6) {
+				PorkChops porkChops = new PorkChops();
+				mySpaceship.addItem(porkChops);
+				System.out.println("pork chops found");
+			} else if (i == 7) {
+				Paracetamol paracetamol = new Paracetamol();
+				mySpaceship.addItem(paracetamol);
+				System.out.println("paracetamol found");
+			} else if (i == 8 || i == 9 || i == 10) {
+				Codeine codeine = new Codeine();
+				mySpaceship.addItem(codeine);
+				System.out.println("codeine found");
+			} else if (game.getPartFound() == true && i == 9 || i == 10 || i == 11) {
+				game.partFound();
+				System.out.println("transporter piece found");
+			} else {
+				System.out.println("you found nothing");
+			}
+			this.actions -= 1;
 		} else {
-			System.out.println("you found nothing");
+			System.out.println("This crew member has no actions left.");
 		}
-		this.actions -= 1;
 		return;
 	}
 	
@@ -118,27 +122,37 @@ public class Crew {
 	 * Two crew members are required, set piloting of the two crew members to true and decrease action count, change location.
 	 */
 	public void pilot(Crew other, Game game){
-		game.nextPlanet();
-		this.actions -= 1;
-		other.actions -= 1;
+		if (this.actions > 0 && other.actions > 0) {
+			game.nextPlanet();
+			this.actions -= 1;
+			other.actions -= 1;
+		} else {
+			System.out.println("At least one of the pilots have no actions left.");
+		}
 	}
 	
 	/**
 	 * Decrease tiredness of the member. Decrease member actions by one.
 	 */
 	public void sleep(){
-		this.tiredness -= 10;
-		this.actions -= 1;
-		return;
+		if (this.actions > 0) {
+			this.tiredness -= 10;
+			this.actions -= 1;
+		} else {
+			System.out.println("This crew member has no actions left.");
+		}
 	}
 	
 	/**
 	 * Let the player choose what item to use, use the item. Decrease member actions by one.
 	 */
-	public void consumeItem(){
-		
-		this.actions -= 1;
-		return;
+	public void consumeItem(Item item) {
+		if (this.actions > 0) {
+			item.useItem(this);
+			this.actions -= 1;
+		} else {
+			System.out.println("This crew member has no actions left.");
+		}
 	}
 	
 	/**
@@ -232,6 +246,14 @@ public class Crew {
 	 */
 	public String getName() {
 		return this.name;
+	}
+	
+	public int getHunger() {
+		return this.hunger;
+	}
+	
+	public void setHunger(int newHunger) {
+		this.hunger = newHunger;
 	}
 }
 

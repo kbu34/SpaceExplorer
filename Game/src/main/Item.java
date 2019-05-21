@@ -9,6 +9,8 @@ public class Item {
 	
 	private String name;
 	private int value;
+	private boolean plagueCuring;
+	private Spaceship mySpaceship;
 	
 	/**
 	 * Constructor for the Item class.
@@ -18,20 +20,38 @@ public class Item {
 	public Item(String name, int value){
 		this.name = name;
 		this.value = value;
+		if (this instanceof PlagueMedicine) {
+			this.plagueCuring = true;
+		} else {
+			this.plagueCuring = false;
+		}
 	}
 	
 	/**
 	 * Uses the item.
 	 */
-	public void useItem(){
-		return;
+	public void useItem(Crew member){
+		if (this instanceof Food) {
+			Food food = (Food) this;
+			member.setHunger(member.getHunger() + food.getNutrition());
+		} else if (this instanceof Medicine) {
+			Medicine med = (Medicine) this;
+			member.setHealth(member.getHealth() - med.getHeal());
+			if (this.plagueCuring == true) {
+				member.cured();
+			}
+		}
+		mySpaceship.removeItem(this);
 	}
 	
 	/**
 	 * Buying the item from the shop.
 	 */
 	public void buyItem(){
-		return;
+		if (this.value < mySpaceship.getMoney()) {
+			mySpaceship.setMoney(mySpaceship.getMoney() - this.value);
+			mySpaceship.addItem(this);
+		}
 	}
 	
 	/**

@@ -91,21 +91,28 @@ public class Game {
 	 */
 	public void eventPicker() {
 		int e = rand.nextInt(10);
-		if (e == 1) {
+		if (e == 1 || e == 2) {
 			astroidBelt();
-		} else if (e == 2) {
-			pirates();
 		} else if (e == 3) {
+			pirates();
+		} else if (e == 4) {
 			plague();
 		}
 		return;
 	}
 	
 	/**
-	 * Decreases shield level of the ship.
+	 * Decreases shield level of the ship. The ship also takes damage.
 	 */
 	public void astroidBelt() { 
+		int damage = 700;
 		System.out.println("Going though an astoid belt");
+		int currentShield = mySpaceship.getShield();
+		damage = (damage / currentShield * 5);
+		mySpaceship.setHealth(mySpaceship.getHealth() - damage);
+		if (mySpaceship.getHealth() > 0) {
+			gameOver();
+		}
 		mySpaceship.setShield(mySpaceship.getShield() - 30);
 	}
 	

@@ -18,5 +18,13 @@ public class Food extends Item{
 		super(name, value);
 		this.nutrition = value;
 	}
+	
+	/**
+	 * Returns how much hunger the food will fill.
+	 *
+	 */
+	public int getNutrition() {
+		return this.nutrition;
+	}
 }
 
