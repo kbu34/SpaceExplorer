@@ -83,7 +83,9 @@ public class Game {
 		mySpaceship.addCrew(member);
 		member.setActions();
 	}
-	
+	/**
+	 * Lets the user pick an action to take in the game
+	 */
 	public void selectAction() {
 		System.out.println("Select the action you want to take:");
 		System.out.println("1 = View crew");
@@ -92,20 +94,21 @@ public class Game {
 		System.out.println("4 = View ship status");
 		System.out.println("5 = Visit space outpost");
 		System.out.println("6 = Go to next day");
+		
 		int choice = input.nextInt();
 		if(choice == 1) {
 			//view crew
 		} else if(choice == 2) {
 			// set crew action
-		}else if(choice == 3) {
+		} else if(choice == 3) {
 			// view inventory
-		}else if(choice == 4) {
+		} else if(choice == 4) {
 			//view ship status
-		}else if(choice == 5) {
+		} else if(choice == 5) {
 			//visit space outpost
-		}else if(choice == 6) {
+		} else if(choice == 6) {
 			nextTurn();
-		}else {
+		} else {
 			System.out.println("Invalid choice, pick again");
 			selectAction();
 		}
