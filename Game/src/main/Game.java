@@ -52,6 +52,13 @@ public class Game {
 	 */
 	public void pickCrew() {
 		System.out.println("Enter the type of crew member you want");
+		System.out.println("1 = Tank - has more health");
+		System.out.println("2 = Consumer - Benefits more from items");
+		System.out.println("3 = Repair Expert - better at repairing the ship");
+		System.out.println("4 = Search Expert - better at searching");
+		System.out.println("5 = Gnome - immune to plague?");
+		System.out.println("6 = Insomniac - Needs less sleep");
+
 		int crewNum = input.nextInt();
 		input.nextLine();
 		System.out.println("Enter the crew member's name");
@@ -73,6 +80,20 @@ public class Game {
 		member.setActions();
 	}
 	
+	public void selectAction() {
+		System.out.println("Select the action you want to take:");
+		System.out.println("1 = View crew");
+		System.out.println("2 = Set crew action");
+		System.out.println("3 = View inventory");
+		System.out.println("4 = View ship status");
+		System.out.println("5 = Visit space outpost");
+		System.out.println("6 = Go to next day");
+		int choice = input.nextInt();
+		if(choice == 1) {
+			//view crew
+		} else if(choice ==])
+		
+	}
 	/**
 	 * Sick crew members will take damage and action count will be reset for all remaining crew members.
 	 */
