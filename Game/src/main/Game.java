@@ -45,6 +45,9 @@ public class Game {
 		turnNum = 1;
 		spaceshipLocation = 1;
 		partFoundHere = false;
+		while(true) {
+			selectAction();
+		}
 	}
 	
 	/**
@@ -97,13 +100,22 @@ public class Game {
 		
 		int choice = input.nextInt();
 		if(choice == 1) {
-			//view crew
+			System.out.println("Select Crew member you would like to view");
+			this.mySpaceship.getCrew();
+			int crewMemberChoice = input.nextInt();
+			System.out.print(this.mySpaceship.getCrewMember(crewMemberChoice - 1).viewStatus());
+			
 		} else if(choice == 2) {
-			// set crew action
+			System.out.println("Select Crew member you would like to assign an action to");
+			this.mySpaceship.getCrew();
+			int crewMemberChoice = input.nextInt();
+			Crew crewMember = this.mySpaceship.getCrewMember(crewMemberChoice - 1);			
+			selectCrewAction(crewMember);
+			
 		} else if(choice == 3) {
-			// view inventory
+			System.out.print(this.mySpaceship.getInventory());
 		} else if(choice == 4) {
-			//view ship status
+			//this.mySpaceship.getStatus();
 		} else if(choice == 5) {
 			//visit space outpost
 		} else if(choice == 6) {
@@ -114,6 +126,34 @@ public class Game {
 		}
 		
 	}
+	private void selectCrewAction(Crew crewMember) {
+		System.out.println("Select action to assign crew member to");
+		System.out.println("1 = Piolt");
+		System.out.println("2 = Repair Shield");
+		System.out.println("3 = Search Planet");
+		System.out.println("4 = Sleep");
+		System.out.println("5 = Use Item");
+		System.out.println("6 = Nothing");
+		
+		int choice = input.nextInt();
+		if (choice == 1) {
+			//crewMember.pilot();
+		} else if (choice == 2) {
+			crewMember.repair(mySpaceship);
+		} else if (choice == 3) {
+			crewMember.search(mySpaceship, this);
+		} else if (choice == 4) {
+			crewMember.sleep();
+		} else if (choice == 5) {
+			//crewMember.consumeItem(pickItem());
+		} else if (choice == 6 ){
+			return;
+		} else {
+			System.out.println("Invalid choice Select again");
+			selectCrewAction(crewMember);
+		}
+	}
+
 	/**
 	 * Sick crew members will take damage and action count will be reset for all remaining crew members.
 	 */

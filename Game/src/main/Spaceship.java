@@ -43,9 +43,10 @@ public class Spaceship {
 	 */
 	public String getCrew() {
 		String names = "";
+		int i = 1;
 		for(Crew crewMember: crew) {
-			names += crewMember.getName() + '\n';
-			
+			names += i + crewMember.getName() + '\n';
+			i += 1;
 		}
 		return names;
 	}
@@ -235,5 +236,9 @@ public class Spaceship {
 		mySpaceship.addCrew(bob);
 		System.out.print("My Spaceship " + mySpaceship.getName() + " has " + mySpaceship.getShield() + " Shield.\n");
 		System.out.print("The Crew are:\n" + mySpaceship.getCrew());
+	}
+
+	public Crew getCrewMember(int i) {
+		return this.crew.get(i);
 	}
 }
