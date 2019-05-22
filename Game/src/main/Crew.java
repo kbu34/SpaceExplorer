@@ -60,7 +60,7 @@ public class Crew {
 		String stringHunger = Integer.toString(this.hunger);
 		String stringSick = Boolean.toString(this.sick);
 		String stringActions = Integer.toString(this.actions);
-		return "Crew member name: " + this.name + "\nCurrent health: " + stringHealth + "\nCurrent hunger: " + stringHunger + "\nCurrently sick: " + stringSick + "\nActions left: " + stringActions;
+		return "Crew member name: " + this.name + "\nCurrent health: " + stringHealth + "\nCurrent hunger: " + stringHunger + "\nCurrently sick: " + stringSick + "\nActions left: " + stringActions + "\n";
 	}
 
 	/**

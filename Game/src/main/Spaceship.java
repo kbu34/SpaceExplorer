@@ -45,7 +45,7 @@ public class Spaceship {
 		String names = "";
 		int i = 1;
 		for(Crew crewMember: crew) {
-			names += i + crewMember.getName() + '\n';
+			names += i + " = "+ crewMember.getName() + '\n';
 			i += 1;
 		}
 		return names;

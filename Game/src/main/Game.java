@@ -101,13 +101,13 @@ public class Game {
 		int choice = input.nextInt();
 		if(choice == 1) {
 			System.out.println("Select Crew member you would like to view");
-			this.mySpaceship.getCrew();
+			System.out.print(this.mySpaceship.getCrew());
 			int crewMemberChoice = input.nextInt();
 			System.out.print(this.mySpaceship.getCrewMember(crewMemberChoice - 1).viewStatus());
 			
 		} else if(choice == 2) {
 			System.out.println("Select Crew member you would like to assign an action to");
-			this.mySpaceship.getCrew();
+			System.out.print(this.mySpaceship.getCrew());
 			int crewMemberChoice = input.nextInt();
 			Crew crewMember = this.mySpaceship.getCrewMember(crewMemberChoice - 1);			
 			selectCrewAction(crewMember);
