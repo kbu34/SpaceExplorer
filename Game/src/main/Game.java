@@ -75,6 +75,10 @@ public class Game {
 			member = new Gnome(name);
 		} else if (crewNum == 6) {
 			member = new Insomniac(name);
+		} else {
+			System.out.println("Invalid choice, pick again");
+			pickCrew();
+			return;
 		}
 		mySpaceship.addCrew(member);
 		member.setActions();
@@ -91,7 +95,20 @@ public class Game {
 		int choice = input.nextInt();
 		if(choice == 1) {
 			//view crew
-		} else if(choice ==])
+		} else if(choice == 2) {
+			// set crew action
+		}else if(choice == 3) {
+			// view inventory
+		}else if(choice == 4) {
+			//view ship status
+		}else if(choice == 5) {
+			//visit space outpost
+		}else if(choice == 6) {
+			nextTurn();
+		}else {
+			System.out.println("Invalid choice, pick again");
+			selectAction();
+		}
 		
 	}
 	/**
