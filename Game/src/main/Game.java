@@ -23,19 +23,19 @@ public class Game {
 	/**
 	 * Starts the game.
 	 */
-	public void startGame() {
+	public void startGame(int days, int crewNum) {
+		
 		System.out.println("How many days would you like the game to last?");
-		gameLength = input.nextInt();
-		input.nextLine();
+		gameLength = days;
 		double doubleLength = gameLength;
 		double doubleParts = (doubleLength / 3) * 2;
 		totalParts = (int) doubleParts;
 		mySpaceship = new Spaceship();
 		System.out.println("Enter the number of crew(2-4)");
 		int numberOfCrew = input.nextInt();
-		while(numberOfCrew != 0) {
+		while(crewNum != 0) {
 			pickCrew();
-			numberOfCrew -= 1;
+			crewNum -= 1;
 		}
 		System.out.println("Enter a name for your spaceship");
 		String spaceshipName = input.nextLine();
@@ -48,6 +48,14 @@ public class Game {
 		while(true) {
 			selectAction();
 		}
+	}
+	
+	public void launchOpeningScreen() {
+		GameGUI gameGUI = new GameGUI();
+	}
+	
+	public void closeOpeningScreen(GameGUI gameGUI) {
+		gameGUI.closeWindow();
 	}
 	
 	/**
@@ -257,8 +265,8 @@ public class Game {
 	
 	public static void main(String[] args) {
 		Game game = new Game();
-		game.startGame();
-		System.out.println(game.mySpaceship.getCrew());
+		game.launchOpeningScreen();
+		//System.out.println(game.mySpaceship.getCrew());
 	}
 
 }
