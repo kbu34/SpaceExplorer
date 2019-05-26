@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -9,8 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+
 
 public class GameGUI {
 
@@ -22,6 +22,7 @@ public class GameGUI {
 	public GameGUI(Game mainGame) {
 		game = mainGame;
 		initialize();
+		frmVeryCoolGame.setVisible(true);
 	}
 	
 	public void closeWindow() {
@@ -76,7 +77,8 @@ public class GameGUI {
 				int crewNum = Integer.parseInt(crewStr);
 				System.out.println(days);
 				System.out.println(crewNum);
-				game.startGame(days, crewNum);
+				closeWindow();
+				CrewCreationGUI crewGUI = new CrewCreationGUI(game, days, crewNum);
 			}
 		});
 		btnGamestart.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));
@@ -93,7 +95,7 @@ public class GameGUI {
 		frmVeryCoolGame.getContentPane().add(lblDaysInstruction);
 		
 		JLabel lblCrewNum = new JLabel("Please enter the number of crew members(2 ~ 4)");
-		lblCrewNum.setBounds(370, 163, 262, 23);
+		lblCrewNum.setBounds(370, 163, 281, 23);
 		frmVeryCoolGame.getContentPane().add(lblCrewNum);
 		
 		crewNumField = new JTextField();

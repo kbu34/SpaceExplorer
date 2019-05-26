@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -23,8 +24,7 @@ public class Game {
 	/**
 	 * Starts the game.
 	 */
-	public void startGame(int days, int crewNum) {
-		
+	public void startGame(int days, int crewNum, ArrayList<Integer> typeList, ArrayList<String> nameList) {
 		System.out.println("How many days would you like the game to last?");
 		gameLength = days;
 		double doubleLength = gameLength;
@@ -34,7 +34,7 @@ public class Game {
 		System.out.println("Enter the number of crew(2-4)");
 		int numberOfCrew = input.nextInt();
 		while(crewNum != 0) {
-			pickCrew();
+			pickCrew(typeList.get(crewNum - 1), nameList.get(crewNum - 1));
 			crewNum -= 1;
 		}
 		System.out.println("Enter a name for your spaceship");
@@ -51,17 +51,21 @@ public class Game {
 	}
 	
 	public void launchOpeningScreen() {
-		GameGUI gameGUI = new GameGUI();
+		GameGUI gameGUI = new GameGUI(this);
 	}
 	
 	public void closeOpeningScreen(GameGUI gameGUI) {
 		gameGUI.closeWindow();
 	}
 	
+	public void launchCrewSelectionScreen() {
+		CrewCreationGUI crewGUI = new CrewCreationGUI(this);
+	}
+	
 	/**
 	 * Lets the user pick the crew member they want.
 	 */
-	public void pickCrew() {
+	public void pickCrew(int type, String memberName) {
 		System.out.println("Enter the type of crew member you want");
 		System.out.println("1 = Tank - has more health");
 		System.out.println("2 = Consumer - Benefits more from items");
@@ -70,10 +74,10 @@ public class Game {
 		System.out.println("5 = Gnome - immune to plague?");
 		System.out.println("6 = Insomniac - Needs less sleep");
 
-		int crewNum = input.nextInt();
+		int crewNum = type;
 		input.nextLine();
 		System.out.println("Enter the crew member's name");
-		String name = input.nextLine();
+		String name = memberName;
 		if (crewNum == 1) {
 			member = new Tank(name);
 		} else if (crewNum == 2) {
@@ -88,9 +92,8 @@ public class Game {
 			member = new Insomniac(name);
 		} else {
 			System.out.println("Invalid choice, pick again");
-			pickCrew();
-			return;
 		}
+		System.out.println(member.getName());
 		mySpaceship.addCrew(member);
 		member.setActions();
 	}
