@@ -24,6 +24,8 @@ public class CrewCreationGUI {
 	private JTextField memberNameField2;
 	private JTextField memberNameField3;
 	private JTextField memberNameField4;
+	private JLabel lblSpaceshipName;
+	private JTextField spaceshipNameField;
 	
 	public CrewCreationGUI(Game mainGame, int mainDays, int memberNum) {
 		game = mainGame;
@@ -167,10 +169,9 @@ public class CrewCreationGUI {
 					nameList.add(crewName3);
 					nameList.add(crewName4);
 				}
-				String crewType = crewTypeField1.getText();
-				String crewName = memberNameField1.getText();
+				String shipName = spaceshipNameField.getText();
 				closeWindow();
-				game.startGame(days, crewNum, typeList, nameList);
+				game.startGame(days, crewNum, typeList, nameList, shipName);
 			}
 		});
 		btnCrewCreation.setBounds(216, 431, 129, 25);
@@ -211,5 +212,14 @@ public class CrewCreationGUI {
 		memberNameField4.setBounds(337, 333, 202, 25);
 		frame.getContentPane().add(memberNameField4);
 		memberNameField4.setColumns(10);
+		
+		lblSpaceshipName = new JLabel("Please enter the name of your spaceship");
+		lblSpaceshipName.setBounds(282, 21, 312, 24);
+		frame.getContentPane().add(lblSpaceshipName);
+		
+		spaceshipNameField = new JTextField();
+		spaceshipNameField.setBounds(279, 71, 294, 27);
+		frame.getContentPane().add(spaceshipNameField);
+		spaceshipNameField.setColumns(10);
 	}
 }

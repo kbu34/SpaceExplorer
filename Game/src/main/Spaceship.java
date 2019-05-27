@@ -22,6 +22,17 @@ public class Spaceship {
 		inventory = new ArrayList<Item>();
 	}
 	
+	public String getStatus() {
+		String shieldStr = Integer.toString(this.shield);
+		String healthStr = Integer.toString(this.health);
+		String moneyStr = Integer.toString(this.money);
+		return "Spaceship name: " + this.name + "\nCurrent shield: " + shieldStr + "\nCurrent health: " + healthStr + "\nCurrent money: " + moneyStr;
+	}
+	
+	public Crew crewGetter(int i) {
+		return crew.get(i);
+	}
+	
 	/**
 	 * Changes the spaceship's name.
 	 * @param name name of the spaceship
@@ -72,9 +83,10 @@ public class Spaceship {
 	 */
 	public String getInventory(){
 		String names = "";
-		for (Item item : inventory) {
-			names += item.getName() + '\n';
-			
+		for (int i = 0; i < this.lenInventory(); i++) {
+			String itemName = this.inventory.get(i).getName();
+			String iStr = Integer.toString(i + 1);
+			names += iStr + ". " + itemName + "\n";
 		}
 		return names;
 	}
@@ -115,7 +127,7 @@ public class Spaceship {
 	 * @param item the item obtained
 	 */
 	public void addItem(Item item){
-		inventory.add(item);
+		this.inventory.add(item);
 	}
 	
 	/**
@@ -123,14 +135,14 @@ public class Spaceship {
 	 * @param item the item used or lost
 	 */
 	public void removeItem(Item item){
-		inventory.remove(item);
+		this.inventory.remove(item);
 	}
 	
 	/**
 	 * Shows the size of the inventory.
 	 */
 	public int lenInventory() {
-		return inventory.size();
+		return this.inventory.size();
 	}
 	
 	/**
@@ -138,7 +150,8 @@ public class Spaceship {
 	 * @param i the index specified  
 	 */
 	public Item inventoryGetter(int i) {
-		return inventory.get(i);
+		System.out.println(this.inventory.get(i));
+		return this.inventory.get(i);
 	}
 	
 	/**
@@ -188,15 +201,15 @@ public class Spaceship {
 		return this.health;
 	}
 	
-	public void outpost() {
+	public void outpost(int itemNum) {
 		System.out.println("Items for sale:");
 		System.out.println("1.Pizza (Effect: reduces hunger by 20. Price: 20");
 		System.out.println("2.Diazepam (Effect: heals user by 20. Price: 20");
 		System.out.println("3.Plague Medicine (Effect: cures space plague. Price: 50");
 		System.out.println("Current inventory:");
-		for (Item mainItem : inventory) {
+		for (Item mainItem : this.inventory) {
 			int count = 0;
-			for (Item item : inventory) {
+			for (Item item : this.inventory) {
 				if (mainItem == item) {
 					count += 1;
 				}
@@ -205,22 +218,16 @@ public class Spaceship {
 		}
 		System.out.println("Money: " + money);
 		System.out.println("Which item would you like to buy?(enter any other number to exit");
-		boolean done = false;
-		int order = input.nextInt();
-		input.nextLine();
-		while (done == false) {
-			if (order == 1) {
-				Pizza pizza = new Pizza();
-				pizza.buyItem();
-			} else if (order == 2) {
-				Diazepam diazepam = new Diazepam();
-				diazepam.buyItem();
-			} else if (order == 3) {
-				PlagueMedicine plagueMedicine = new PlagueMedicine();
-				plagueMedicine.buyItem();
-			} else {
-				done = true;
-			}
+		int order = itemNum;
+		if (order == 1) {
+			Pizza pizza = new Pizza();
+			pizza.buyItem(this);
+		} else if (order == 2) {
+			Diazepam diazepam = new Diazepam();
+			diazepam.buyItem(this);
+		} else if (order == 3) {
+			PlagueMedicine plagueMedicine = new PlagueMedicine();
+			plagueMedicine.buyItem(this);
 		}
 	}
 

@@ -18,36 +18,49 @@ public class Game {
 	private boolean partFoundHere;
 	private Spaceship mySpaceship;
 	private Crew member;
-    Scanner input = new Scanner(System.in);
-    Random rand = new Random();
+    private Scanner input = new Scanner(System.in);
+    private Random rand = new Random();
+    private MainGameGUI gameGUI;
 	
 	/**
 	 * Starts the game.
 	 */
-	public void startGame(int days, int crewNum, ArrayList<Integer> typeList, ArrayList<String> nameList) {
+	public void startGame(int days, int crewNum, ArrayList<Integer> typeList, ArrayList<String> nameList, String shipName) {
 		System.out.println("How many days would you like the game to last?");
 		gameLength = days;
 		double doubleLength = gameLength;
 		double doubleParts = (doubleLength / 3) * 2;
 		totalParts = (int) doubleParts;
+		System.out.println(totalParts);
 		mySpaceship = new Spaceship();
 		System.out.println("Enter the number of crew(2-4)");
-		int numberOfCrew = input.nextInt();
 		while(crewNum != 0) {
 			pickCrew(typeList.get(crewNum - 1), nameList.get(crewNum - 1));
 			crewNum -= 1;
 		}
 		System.out.println("Enter a name for your spaceship");
-		String spaceshipName = input.nextLine();
-		System.out.println(spaceshipName);
-		mySpaceship.setName(spaceshipName);
+		mySpaceship.setName(shipName);
 		partsAquired = 0;
 		turnNum = 1;
 		spaceshipLocation = 1;
 		partFoundHere = false;
-		while(true) {
-			selectAction();
-		}
+		launchMainScreen();
+	}
+	
+	public int getTotalParts() {
+		return this.totalParts;
+	}
+	
+	public int getPartsAquired() {
+		return this.partsAquired;
+	}
+	
+	public int getTurnNum() {
+		return this.turnNum;
+	}
+	
+	public int getGameLen() {
+		return this.gameLength;
 	}
 	
 	public void launchOpeningScreen() {
@@ -58,9 +71,10 @@ public class Game {
 		gameGUI.closeWindow();
 	}
 	
-	public void launchCrewSelectionScreen() {
-		CrewCreationGUI crewGUI = new CrewCreationGUI(this);
+	public void launchMainScreen() {
+		gameGUI = new MainGameGUI(this, mySpaceship);
 	}
+	
 	
 	/**
 	 * Lets the user pick the crew member they want.
@@ -75,7 +89,6 @@ public class Game {
 		System.out.println("6 = Insomniac - Needs less sleep");
 
 		int crewNum = type;
-		input.nextLine();
 		System.out.println("Enter the crew member's name");
 		String name = memberName;
 		if (crewNum == 1) {
@@ -121,7 +134,6 @@ public class Game {
 			System.out.print(this.mySpaceship.getCrew());
 			int crewMemberChoice = input.nextInt();
 			Crew crewMember = this.mySpaceship.getCrewMember(crewMemberChoice - 1);			
-			selectCrewAction(crewMember);
 			
 		} else if(choice == 3) {
 			System.out.print(this.mySpaceship.getInventory());
@@ -137,33 +149,6 @@ public class Game {
 		}
 		
 	}
-	private void selectCrewAction(Crew crewMember) {
-		System.out.println("Select action to assign crew member to");
-		System.out.println("1 = Piolt");
-		System.out.println("2 = Repair Shield");
-		System.out.println("3 = Search Planet");
-		System.out.println("4 = Sleep");
-		System.out.println("5 = Use Item");
-		System.out.println("6 = Nothing");
-		
-		int choice = input.nextInt();
-		if (choice == 1) {
-			//crewMember.pilot();
-		} else if (choice == 2) {
-			crewMember.repair(mySpaceship);
-		} else if (choice == 3) {
-			crewMember.search(mySpaceship, this);
-		} else if (choice == 4) {
-			crewMember.sleep();
-		} else if (choice == 5) {
-			//crewMember.consumeItem(pickItem());
-		} else if (choice == 6 ){
-			return;
-		} else {
-			System.out.println("Invalid choice Select again");
-			selectCrewAction(crewMember);
-		}
-	}
 
 	/**
 	 * Sick crew members will take damage and action count will be reset for all remaining crew members.
@@ -171,10 +156,14 @@ public class Game {
 	public void nextTurn() {
 		mySpaceship.sicknessCheck();
 		mySpaceship.crewActionReset();
-		if (turnNum == gameLength) {
+		System.out.println("day:");
+		System.out.println(this.turnNum);
+		System.out.println(this.gameLength);
+		System.out.println("time given:");
+		if (this.turnNum == this.gameLength) {
 			gameOver();
 		} else {
-			turnNum += 1;
+			this.turnNum += 1;
 		}
 	}
 	
@@ -253,7 +242,11 @@ public class Game {
 	public void partFound() {
 		this.partsAquired += 1;
 		this.partFoundHere = true;
-		if (partsAquired == totalParts) {
+		System.out.println("parts aquired:");
+		System.out.println(this.partsAquired);
+		System.out.println("parts needed:");
+		System.out.println(this.totalParts);
+		if (this.partsAquired == this.totalParts) {
 			gameOver();
 		}
 	}
@@ -264,6 +257,12 @@ public class Game {
 	public void nextPlanet() {
 		this.partFoundHere = false;
 		this.spaceshipLocation += 1;
+		System.out.println("New part can be found here.");
+	}
+	
+	public void gameOver() {
+		gameGUI.closeWindow();
+		EndGameGUI endGame = new EndGameGUI(this, mySpaceship);
 	}
 	
 	public static void main(String[] args) {

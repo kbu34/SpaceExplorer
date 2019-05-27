@@ -10,7 +10,6 @@ public class Item {
 	private String name;
 	private int value;
 	private boolean plagueCuring;
-	private Spaceship mySpaceship;
 	
 	/**
 	 * Constructor for the Item class.
@@ -30,7 +29,7 @@ public class Item {
 	/**
 	 * Uses the item.
 	 */
-	public void useItem(Crew member){
+	public void useItem(Crew member, Spaceship mySpaceship){
 		if (this instanceof Food) {
 			Food food = (Food) this;
 			member.setHunger(member.getHunger() + food.getNutrition());
@@ -47,10 +46,13 @@ public class Item {
 	/**
 	 * Buying the item from the shop.
 	 */
-	public void buyItem(){
+	public boolean buyItem(Spaceship mySpaceship){
 		if (this.value < mySpaceship.getMoney()) {
 			mySpaceship.setMoney(mySpaceship.getMoney() - this.value);
 			mySpaceship.addItem(this);
+			return true;
+		} else {
+			return false;
 		}
 	}
 	

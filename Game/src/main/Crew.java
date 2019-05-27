@@ -14,7 +14,7 @@ public class Crew {
 	private String name;
 	private int tiredness;
 	private boolean sick;
-	private boolean piolting;
+	private boolean piloting;
 	private int hunger;
 	private int hungerRate;
 	private int healthRate;
@@ -46,7 +46,7 @@ public class Crew {
 		this.tiredness = 0;
 		this.hunger = 0;
 		this.sick = false;
-		this.piolting = false;
+		this.piloting = false;
 		this.actions = 2;
 	
 	}
@@ -77,43 +77,52 @@ public class Crew {
 	 * 
 	 * A crew member may find food or medical item, transporter part, money or nothing
 	 */
-	public void search(Spaceship mySpaceship, Game game){
+	public String search(Spaceship mySpaceship, Game game){
+		String found = "";
 		if (this.actions > 0) {
 			Random rand = new Random();
-			int i = rand.nextInt(20);
+			int i = rand.nextInt(15);
 			if (i == 1) {
 				mySpaceship.setMoney(mySpaceship.getMoney() + 99999);
 			} else if (i == 2 || i == 3) {
 				Pie pie = new Pie();
 				mySpaceship.addItem(pie);
 				System.out.println("pie found");
+				found = "pie found";
 			} else if (i == 4 || i == 5) {
 				Apple apple = new Apple();
 				mySpaceship.addItem(apple);
 				System.out.println("apple found");
+				found = "apple found";
 			} else if (i == 6) {
 				PorkChops porkChops = new PorkChops();
 				mySpaceship.addItem(porkChops);
 				System.out.println("pork chops found");
+				found = "pork chops found";
 			} else if (i == 7) {
 				Paracetamol paracetamol = new Paracetamol();
 				mySpaceship.addItem(paracetamol);
 				System.out.println("paracetamol found");
+				found = "paracetamol found";
 			} else if (i == 8 || i == 9 || i == 10) {
 				Codeine codeine = new Codeine();
 				mySpaceship.addItem(codeine);
 				System.out.println("codeine found");
+				found = "codeine found";
 			} else if (game.getPartFound() == true && i == 9 || i == 10 || i == 11) {
 				game.partFound();
 				System.out.println("transporter piece found");
+				found ="transporter piece found";
 			} else {
 				System.out.println("you found nothing");
+				found = "you found nothing";
 			}
 			this.actions -= 1;
 		} else {
 			System.out.println("This crew member has no actions left.");
+			found = "This crew member has no actions left.";
 		}
-		return;
+		return found;
 	}
 	
 	/**
@@ -146,9 +155,9 @@ public class Crew {
 	/**
 	 * Let the player choose what item to use, use the item. Decrease member actions by one.
 	 */
-	public void consumeItem(Item item) {
+	public void consumeItem(Item item, Spaceship mySpaceship) {
 		if (this.actions > 0) {
-			item.useItem(this);
+			item.useItem(this, mySpaceship);
 			this.actions -= 1;
 		} else {
 			System.out.println("This crew member has no actions left.");
