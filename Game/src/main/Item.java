@@ -32,10 +32,14 @@ public class Item {
 	public void useItem(Crew member, Spaceship mySpaceship){
 		if (this instanceof Food) {
 			Food food = (Food) this;
-			member.setHunger(member.getHunger() + food.getNutrition());
+			if (member.getHunger() - food.getNutrition() - member.getItemEffetive() < 0) {
+				member.setHunger(0);
+			} else {
+				member.setHunger(member.getHunger() - food.getNutrition() - member.getItemEffetive());
+			}
 		} else if (this instanceof Medicine) {
 			Medicine med = (Medicine) this;
-			member.setHealth(member.getHealth() - med.getHeal());
+			member.setHealth(member.getHealth() + med.getHeal() + member.getItemEffetive());
 			if (this.plagueCuring == true) {
 				member.cured();
 			}

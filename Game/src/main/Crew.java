@@ -21,6 +21,7 @@ public class Crew {
 	private int tirednessRate;
 	private int itemEffectiveness;
 	private int actions;
+	private int e;
 	
 
 	/**
@@ -81,7 +82,12 @@ public class Crew {
 		String found = "";
 		if (this.actions > 0) {
 			Random rand = new Random();
-			int i = rand.nextInt(15);
+			if (this instanceof SearchExpert) {
+				this.e = rand.nextInt(13);
+			} else {
+				this.e = rand.nextInt(20);
+			}
+			int i = this.e;
 			if (i == 1) {
 				mySpaceship.setMoney(mySpaceship.getMoney() + 99999);
 			} else if (i == 2 || i == 3) {
@@ -145,7 +151,10 @@ public class Crew {
 	 */
 	public void sleep(){
 		if (this.actions > 0) {
-			this.tiredness -= 10;
+			this.tiredness -= 40;
+			if (this.tiredness < 0) {
+				this.tiredness = 0;
+			}
 			this.actions -= 1;
 		} else {
 			System.out.println("This crew member has no actions left.");
@@ -191,7 +200,11 @@ public class Crew {
 	 * @return health
 	 */
 	public int getHealth() {
-		return health;
+		return this.health;
+	}
+	
+	public int getItemEffetive() {
+		return this.itemEffectiveness;
 	}
 	
 	/**
@@ -202,9 +215,10 @@ public class Crew {
 	 */
 	public void damage(int damage, Spaceship mySpaceship) {
 		this.health -= damage;
-		if (this.health > 0) {
+		if (this.health <= 0) {
 			mySpaceship.removeMember(this);
 			System.out.println(this.name + " died.");
+			DeathAlertGUI deathGUI = new DeathAlertGUI(this.name);
 		}
 	}
 	
@@ -214,7 +228,6 @@ public class Crew {
 	 */
 	public void setHealth(int value){
 		this.health = value;
-		return;
 	}
 	
 	/**
@@ -231,6 +244,9 @@ public class Crew {
 	 */
 	public void setTiredness(int value){
 		this.tiredness = value;
+		if (this.tiredness < 0) {
+			this.tiredness = 0;
+		}
 		return;
 	}
 	

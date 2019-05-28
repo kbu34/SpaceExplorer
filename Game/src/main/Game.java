@@ -104,7 +104,7 @@ public class Game {
 		} else if (crewNum == 6) {
 			member = new Insomniac(name);
 		} else {
-			System.out.println("Invalid choice, pick again");
+			throw new IllegalArgumentException("pick from 1 to 6");
 		}
 		System.out.println(member.getName());
 		mySpaceship.addCrew(member);
@@ -165,6 +165,15 @@ public class Game {
 		} else {
 			this.turnNum += 1;
 		}
+		for (int i = 0; i < mySpaceship.crewLen(); i++) {
+			Crew member = mySpaceship.crewGetter(i);
+			if (member instanceof Insomniac) {
+				member.setTiredness(member.getFatigue() + 20);
+			} else {
+				member.setTiredness(member.getFatigue() + 35);
+			}
+		}
+		eventPicker();
 	}
 	
 	/**
@@ -172,29 +181,33 @@ public class Game {
 	 */
 	public void eventPicker() {
 		int e = rand.nextInt(10);
+		System.out.print("EVENT");
+		System.out.print(e);
 		if (e == 1 || e == 2) {
-			astroidBelt();
-		} else if (e == 3) {
 			pirates();
-		} else if (e == 4) {
+		} else if (e == 3 || e == 4) {
 			plague();
 		}
-		return;
 	}
 	
 	/**
 	 * Decreases shield level of the ship. The ship also takes damage.
 	 */
 	public void astroidBelt() { 
-		int damage = 700;
-		System.out.println("Going though an astoid belt");
-		int currentShield = mySpaceship.getShield();
-		damage = (damage / currentShield * 5);
-		mySpaceship.setHealth(mySpaceship.getHealth() - damage);
-		if (mySpaceship.getHealth() > 0) {
-			gameOver();
+		int e = rand.nextInt(10);
+		if (e > 7) {
+			int damage = 700;
+			System.out.println("Going though an astoid belt");
+			int currentShield = mySpaceship.getShield();
+			damage = (damage / currentShield * 5);
+			mySpaceship.setHealth(mySpaceship.getHealth() - damage);
+			if (mySpaceship.getHealth() > 0) {
+				gameOver();
+			} else {
+				mySpaceship.setShield(mySpaceship.getShield() - 30);
+				AstroidAlertGUI alertGUI = new AstroidAlertGUI(damage, mySpaceship);
+			}
 		}
-		mySpaceship.setShield(mySpaceship.getShield() - 30);
 	}
 	
 	/**
@@ -202,9 +215,12 @@ public class Game {
 	 */
 	public void pirates() {
 		System.out.println("pirate invasion");
-		int i = rand.nextInt(this.mySpaceship.lenInventory());
-		this.mySpaceship.removeItem(this.mySpaceship.inventoryGetter(i));
-		return;
+		System.out.println(this.mySpaceship.lenInventory());
+		if (this.mySpaceship.lenInventory() != 0) {
+			int i = rand.nextInt(this.mySpaceship.lenInventory());
+			PirateAlertGUI pirateGUI = new PirateAlertGUI(this.mySpaceship.inventoryGetter(i));
+			this.mySpaceship.removeItem(this.mySpaceship.inventoryGetter(i));
+		}
 	}
 	
 	/**
@@ -212,10 +228,16 @@ public class Game {
 	 */
 	public void plague() {
 		System.out.println("space plague");
-		int sickPeople = rand.nextInt(mySpaceship.crewLen());
-		for (int i = sickPeople; i > 0; i--) {
-			int sickPerson = rand.nextInt(mySpaceship.crewLen());
-			mySpaceship.getSick(sickPerson);
+		for (int i = 0; i < mySpaceship.crewLen(); i++) {
+			int e = rand.nextInt(2);
+			if (e == 1) {
+				if (mySpaceship.crewGetter(i) instanceof Gnome) {
+					System.out.println("This member is immune!");
+				} else {
+					mySpaceship.getSick(i);
+					PlagueAlertGUI plagueGUI = new PlagueAlertGUI(i, mySpaceship);
+				}
+			}
 		}
 	}
 	
@@ -258,6 +280,7 @@ public class Game {
 		this.partFoundHere = false;
 		this.spaceshipLocation += 1;
 		System.out.println("New part can be found here.");
+		astroidBelt();
 	}
 	
 	public void gameOver() {

@@ -16,6 +16,7 @@ public class MainGameGUI {
 	private Game game;
 	private Spaceship mySpaceship;
 	private JLabel lblDayCount;
+	private JLabel lblWarning;
 	
 	public MainGameGUI(Game mainGame, Spaceship spaceship) {
 		game = mainGame;
@@ -26,6 +27,10 @@ public class MainGameGUI {
 	
 	public void closeWindow() {
 		frame.dispose();
+	}
+	
+	public void wrongCrew() {
+		lblWarning.setText("That crew member does not exist.");
 	}
 
 	/**
@@ -66,7 +71,7 @@ public class MainGameGUI {
 				SpaceshipStatusGUI spaceshipGUI = new SpaceshipStatusGUI(mySpaceship.getStatus(), game);
 			}
 		});
-		btnSpaceshipStatus.setBounds(24, 32, 116, 35);
+		btnSpaceshipStatus.setBounds(24, 32, 173, 44);
 		frame.getContentPane().add(btnSpaceshipStatus);
 		
 		JButton btnCrewStatus1 = new JButton("Crew member 1 status");
@@ -75,34 +80,46 @@ public class MainGameGUI {
 				CrewStatusGUI crew1Status = new CrewStatusGUI(mySpaceship.getCrewMember(0).viewStatus());
 			}
 		});
-		btnCrewStatus1.setBounds(24, 78, 143, 35);
+		btnCrewStatus1.setBounds(24, 87, 173, 44);
 		frame.getContentPane().add(btnCrewStatus1);
 		
 		JButton btnNewButton = new JButton("Crew member 2 status");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CrewStatusGUI crew2Status = new CrewStatusGUI(mySpaceship.getCrewMember(1).viewStatus());
+				if (mySpaceship.crewLen() >= 2) {
+					CrewStatusGUI crew2Status = new CrewStatusGUI(mySpaceship.getCrewMember(1).viewStatus());
+				} else {
+					wrongCrew();
+				}
 			}
 		});
-		btnNewButton.setBounds(24, 124, 143, 28);
+		btnNewButton.setBounds(24, 142, 173, 44);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Crew member 3 status");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CrewStatusGUI crew3Status = new CrewStatusGUI(mySpaceship.getCrewMember(2).viewStatus());
+				if (mySpaceship.crewLen() >= 3) {
+					CrewStatusGUI crew3Status = new CrewStatusGUI(mySpaceship.getCrewMember(2).viewStatus());
+				} else {
+					wrongCrew();
+				}
 			}
 		});
-		btnNewButton_1.setBounds(24, 163, 143, 31);
+		btnNewButton_1.setBounds(24, 197, 173, 44);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JButton btnCrewMember = new JButton("Crew member 4 status");
 		btnCrewMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CrewStatusGUI crew4Status = new CrewStatusGUI(mySpaceship.getCrewMember(3).viewStatus());
+				if (mySpaceship.crewLen() == 4) {
+					CrewStatusGUI crew4Status = new CrewStatusGUI(mySpaceship.getCrewMember(3).viewStatus());
+				} else {
+					wrongCrew();
+				}
 			}
 		});
-		btnCrewMember.setBounds(24, 205, 143, 35);
+		btnCrewMember.setBounds(24, 252, 173, 51);
 		frame.getContentPane().add(btnCrewMember);
 		
 		JButton btnAction1 = new JButton("Set member 1 action");
@@ -111,34 +128,46 @@ public class MainGameGUI {
 				CrewActionGUI actionGUI1 = new CrewActionGUI(mySpaceship.getCrewMember(0), mySpaceship, game);
 			}
 		});
-		btnAction1.setBounds(201, 78, 148, 35);
+		btnAction1.setBounds(239, 92, 173, 39);
 		frame.getContentPane().add(btnAction1);
 		
 		JButton btnAction2 = new JButton("Set member 2 action");
 		btnAction2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CrewActionGUI actionGUI2 = new CrewActionGUI(mySpaceship.getCrewMember(1), mySpaceship, game);
+				if (mySpaceship.crewLen() >= 2) {
+					CrewActionGUI actionGUI2 = new CrewActionGUI(mySpaceship.getCrewMember(1), mySpaceship, game);
+				} else {
+					wrongCrew();
+				}
 			}
 		});
-		btnAction2.setBounds(201, 127, 143, 28);
+		btnAction2.setBounds(239, 142, 173, 44);
 		frame.getContentPane().add(btnAction2);
 		
 		JButton btnAction3 = new JButton("Set member 3 action");
 		btnAction3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CrewActionGUI actionGUI3 = new CrewActionGUI(mySpaceship.getCrewMember(2), mySpaceship, game);
+				if (mySpaceship.crewLen() >= 3) {
+					CrewActionGUI actionGUI3 = new CrewActionGUI(mySpaceship.getCrewMember(2), mySpaceship, game);
+				} else {
+					wrongCrew();
+				}
 			}
 		});
-		btnAction3.setBounds(201, 167, 148, 35);
+		btnAction3.setBounds(239, 202, 173, 47);
 		frame.getContentPane().add(btnAction3);
 		
 		JButton btnAction4 = new JButton("Set member 4 action");
 		btnAction4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CrewActionGUI actionGUI4 = new CrewActionGUI(mySpaceship.getCrewMember(3), mySpaceship, game);
+				if (mySpaceship.crewLen() == 4) {
+					CrewActionGUI actionGUI4 = new CrewActionGUI(mySpaceship.getCrewMember(3), mySpaceship, game);
+				} else {
+					wrongCrew();
+				}
 			}
 		});
-		btnAction4.setBounds(201, 211, 148, 28);
+		btnAction4.setBounds(239, 260, 173, 35);
 		frame.getContentPane().add(btnAction4);
 		
 		JButton btnSpaceOutpost = new JButton("Space outpost");
@@ -147,7 +176,7 @@ public class MainGameGUI {
 				SpaceOutpostGUI outpost = new SpaceOutpostGUI(mySpaceship);
 			}
 		});
-		btnSpaceOutpost.setBounds(24, 345, 135, 44);
+		btnSpaceOutpost.setBounds(62, 402, 153, 58);
 		frame.getContentPane().add(btnSpaceOutpost);
 		
 		JButton btnNextDay = new JButton("next day");
@@ -162,7 +191,11 @@ public class MainGameGUI {
 		
 		lblDayCount = new JLabel("day " + game.getTurnNum() + " out of " + game.getGameLen());
 		lblDayCount.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblDayCount.setBounds(479, 53, 212, 44);
+		lblDayCount.setBounds(547, 55, 212, 44);
 		frame.getContentPane().add(lblDayCount);
+		
+		lblWarning = new JLabel("");
+		lblWarning.setBounds(38, 325, 431, 35);
+		frame.getContentPane().add(lblWarning);
 	}
 }

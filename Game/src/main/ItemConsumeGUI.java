@@ -19,6 +19,7 @@ public class ItemConsumeGUI {
 	private Spaceship mySpaceship;
 	private JButton btnEnter;
 	private JButton btnQuit;
+	private JLabel lblWarning;
 	
 	public ItemConsumeGUI(Crew crewMember, Spaceship spaceship) {
 		mySpaceship = spaceship;
@@ -79,8 +80,12 @@ public class ItemConsumeGUI {
 			public void actionPerformed(ActionEvent e) {
 				String itemNumStr = itemTextField.getText();
 				int itemNum = Integer.parseInt(itemNumStr);
-				member.consumeItem(mySpaceship.inventoryGetter(itemNum - 1), mySpaceship);
-				frame.dispose();
+				if (itemNum > 0 && mySpaceship.lenInventory() > itemNum) {
+					member.consumeItem(mySpaceship.inventoryGetter(itemNum - 1), mySpaceship);
+					frame.dispose();
+				} else {
+					lblWarning.setText("Please enter a valid item number.");
+				}
 			}
 		});
 		btnEnter.setBounds(402, 329, 108, 29);
@@ -94,6 +99,10 @@ public class ItemConsumeGUI {
 		});
 		btnQuit.setBounds(402, 438, 108, 29);
 		frame.getContentPane().add(btnQuit);
+		
+		lblWarning = new JLabel("");
+		lblWarning.setBounds(348, 369, 239, 35);
+		frame.getContentPane().add(lblWarning);
 	}
 
 }

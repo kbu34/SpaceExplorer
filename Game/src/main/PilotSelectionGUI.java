@@ -17,6 +17,7 @@ public class PilotSelectionGUI {
 	private Spaceship mySpaceship;
 	private Crew member;
 	private Game game;
+	private JLabel lblWarning;
 	
 	public PilotSelectionGUI(Spaceship spaceship, Crew crew, Game mainGame) {
 		member = crew;
@@ -54,7 +55,7 @@ public class PilotSelectionGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 480, 352);
+		frame.setBounds(100, 100, 480, 386);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -78,9 +79,17 @@ public class PilotSelectionGUI {
 			public void actionPerformed(ActionEvent e) {
 				String coPilotStr = coPilotTextField.getText();
 				int coPilotInt = Integer.parseInt(coPilotStr);
-				Crew coPilot = mySpaceship.crewGetter(coPilotInt);
-				member.pilot(coPilot, game);
-				frame.dispose();
+				if (coPilotInt <= 0 || coPilotInt > mySpaceship.crewLen()) {
+					lblWarning.setText("Invalid crew number.");
+				} else {
+					Crew coPilot = mySpaceship.crewGetter(coPilotInt - 1);
+					if (member != coPilot) {
+						member.pilot(coPilot, game);
+						frame.dispose();
+					} else {
+						lblWarning.setText("A crew member can't be the pilot and the co-pilot at once.");
+					}
+				}
 			}
 		});
 		btnEnter.setBounds(285, 168, 116, 34);
@@ -92,8 +101,12 @@ public class PilotSelectionGUI {
 				frame.dispose();
 			}
 		});
-		btnQuit.setBounds(285, 256, 116, 34);
+		btnQuit.setBounds(285, 302, 116, 34);
 		frame.getContentPane().add(btnQuit);
+		
+		lblWarning = new JLabel("");
+		lblWarning.setBounds(10, 241, 444, 28);
+		frame.getContentPane().add(lblWarning);
 	}
 
 }
