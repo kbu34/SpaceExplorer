@@ -16,6 +16,7 @@ public class Insomniac extends Crew {
 	
 	/**
 	 * Constructor for Consumer.
+	 * @param name name of the crew member
 	 */
 	public Insomniac(String name) {
 		super(name, health, shieldRepairValue, searchProficiency, healthRate, tirednessRate, itemEffectiveness);

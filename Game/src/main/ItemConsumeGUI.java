@@ -9,10 +9,11 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class ItemConsumeGUI {
 
-	private JFrame frame;
+	private JFrame frmSpaceExplorerItems;
 	private JTextField itemTextField;
 	private String items;
 	private Crew member;
@@ -25,18 +26,15 @@ public class ItemConsumeGUI {
 		mySpaceship = spaceship;
 		member = crewMember;
 		initialize();
-		frame.setVisible(true);
+		frmSpaceExplorerItems.setVisible(true);
 	}
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					ItemConsumeGUI window = new ItemConsumeGUI();
-					window.frame.setVisible(true);
+					window.frmSpaceExplorerItems.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,54 +53,58 @@ public class ItemConsumeGUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 613, 562);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmSpaceExplorerItems = new JFrame();
+		frmSpaceExplorerItems.setTitle("Space Explorer Items");
+		frmSpaceExplorerItems.setBounds(100, 100, 613, 562);
+		frmSpaceExplorerItems.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmSpaceExplorerItems.getContentPane().setLayout(null);
 		
 		JTextArea itemTextArea = new JTextArea();
 		itemTextArea.setText(mySpaceship.getInventory());
 		itemTextArea.setEditable(false);
 		itemTextArea.setBounds(10, 11, 328, 501);
-		frame.getContentPane().add(itemTextArea);
+		frmSpaceExplorerItems.getContentPane().add(itemTextArea);
 		
 		itemTextField = new JTextField();
 		itemTextField.setBounds(348, 280, 228, 29);
-		frame.getContentPane().add(itemTextField);
+		frmSpaceExplorerItems.getContentPane().add(itemTextField);
 		itemTextField.setColumns(10);
 		
 		JLabel lblPleaseEnterThe = new JLabel("Please enter the item's number.");
+		lblPleaseEnterThe.setFont(new Font("Verdana", Font.PLAIN, 12));
 		lblPleaseEnterThe.setBounds(348, 212, 228, 35);
-		frame.getContentPane().add(lblPleaseEnterThe);
+		frmSpaceExplorerItems.getContentPane().add(lblPleaseEnterThe);
 		
 		btnEnter = new JButton("Enter");
+		btnEnter.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 12));
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String itemNumStr = itemTextField.getText();
 				int itemNum = Integer.parseInt(itemNumStr);
-				if (itemNum > 0 && mySpaceship.lenInventory() > itemNum) {
+				if (itemNum > 0 && mySpaceship.lenInventory() >= itemNum) {
 					member.consumeItem(mySpaceship.inventoryGetter(itemNum - 1), mySpaceship);
-					frame.dispose();
+					frmSpaceExplorerItems.dispose();
 				} else {
 					lblWarning.setText("Please enter a valid item number.");
 				}
 			}
 		});
 		btnEnter.setBounds(402, 329, 108, 29);
-		frame.getContentPane().add(btnEnter);
+		frmSpaceExplorerItems.getContentPane().add(btnEnter);
 		
 		btnQuit = new JButton("Quit");
+		btnQuit.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 12));
 		btnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				frmSpaceExplorerItems.dispose();
 			}
 		});
 		btnQuit.setBounds(402, 438, 108, 29);
-		frame.getContentPane().add(btnQuit);
+		frmSpaceExplorerItems.getContentPane().add(btnQuit);
 		
 		lblWarning = new JLabel("");
 		lblWarning.setBounds(348, 369, 239, 35);
-		frame.getContentPane().add(lblWarning);
+		frmSpaceExplorerItems.getContentPane().add(lblWarning);
 	}
 
 }

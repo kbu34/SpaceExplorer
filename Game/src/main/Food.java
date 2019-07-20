@@ -21,7 +21,7 @@ public class Food extends Item{
 	
 	/**
 	 * Returns how much hunger the food will fill.
-	 *
+	 * @return the nutrition of the food item
 	 */
 	public int getNutrition() {
 		return this.nutrition;

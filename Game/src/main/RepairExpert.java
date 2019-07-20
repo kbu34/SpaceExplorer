@@ -16,6 +16,7 @@ public class RepairExpert extends Crew {
 	
 	/**
 	 * Constructor for RepairExpert.
+	 * @param name of the crew member
 	 */
 	public RepairExpert(String name) {
 		super(name, health, shieldRepairValue, searchProficiency, healthRate, tirednessRate, itemEffectiveness);

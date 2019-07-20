@@ -22,6 +22,10 @@ public class Spaceship {
 		inventory = new ArrayList<Item>();
 	}
 	
+	/**
+	 * Returns the current status of the spaceship.
+	 * @return current status of the spaceship.
+	 */
 	public String getStatus() {
 		String shieldStr = Integer.toString(this.shield);
 		String healthStr = Integer.toString(this.health);
@@ -43,7 +47,7 @@ public class Spaceship {
 	
 	/**
 	 * returns the name of the spaceship.
-	 * 
+	 * @return name of the spaceship
 	 */
 	public String getName() {
 		return this.name;
@@ -51,6 +55,7 @@ public class Spaceship {
 	
 	/**
 	 * Shows the crew member names.
+	 * @return names of the crew members
 	 */
 	public String getCrew() {
 		String names = "";
@@ -64,7 +69,7 @@ public class Spaceship {
 	
 	/**
 	 * Returns the number of surviving crew members.
-	 * 
+	 * @return number of crew members
 	 */
 	public int crewLen() {
 		return this.crew.size();
@@ -72,7 +77,7 @@ public class Spaceship {
 	
 	/**
 	 * Adds crew member
-	 * @param crew member to be added
+	 * @param crewMember crew member to be added
 	 */
 	public void addCrew(Crew crewMember) {
 		crew.add(crewMember);
@@ -80,6 +85,7 @@ public class Spaceship {
 	
 	/**
 	 * Shows the item inventory.
+	 * @return names of the items in the inventory
 	 */
 	public String getInventory(){
 		String names = "";
@@ -89,6 +95,15 @@ public class Spaceship {
 			names += iStr + ". " + itemName + "\n";
 		}
 		return names;
+	}
+	
+	/**
+	 * Returns the index of the crew member in the crew list.
+	 * @param member crew member being passed to the method
+	 * @return index of the crew member in the list added by 1
+	 */
+	public int crewIndex(Crew member) {
+		return this.crew.indexOf(member) + 1;
 	}
 	
 	/**
@@ -121,6 +136,9 @@ public class Spaceship {
 	 */
 	public void setShield(int shield) {
 		this.shield = shield;
+		if (this.shield < 0) {
+			this.shield = 0;
+		}
 	}
 	/**
 	 * Adds item to the inventory.
@@ -140,6 +158,7 @@ public class Spaceship {
 	
 	/**
 	 * Shows the size of the inventory.
+	 * @return number of items in the inventory
 	 */
 	public int lenInventory() {
 		return this.inventory.size();
@@ -148,6 +167,7 @@ public class Spaceship {
 	/**
 	 * Returns the item in inventory.
 	 * @param i the index specified  
+	 * @return the item specified
 	 */
 	public Item inventoryGetter(int i) {
 		System.out.println(this.inventory.get(i));
@@ -193,14 +213,26 @@ public class Spaceship {
 		member.sickened();
 	}
 	
+	/**
+	 * Sets the health of the spaceship according to change
+	 * @param healthChange Change to health calculated.
+	 */
 	public void setHealth(int healthChange) {
 		this.health = healthChange;
 	}
 	
+	/**
+	 * Returns the health of the spaceship.
+	 * @return The health of the spaceship.
+	 */
 	public int getHealth() {
 		return this.health;
 	}
 	
+	/**
+	 * A Space outpost where the player can visit and purchase items.
+	 * @param itemNum The number of item the player buys.
+	 */
 	public void outpost(int itemNum) {
 		System.out.println("Items for sale:");
 		System.out.println("1.Pizza (Effect: reduces hunger by 20. Price: 20");
@@ -230,21 +262,12 @@ public class Spaceship {
 			plagueMedicine.buyItem(this);
 		}
 	}
-
-
-	public static void main(String[] args) {
-		
-		Spaceship mySpaceship = new Spaceship();
-		mySpaceship.setName("Discovery");
-		Gnome bob = new Gnome("bob");
-		Gnome joe = new Gnome("joe");
-		
-		mySpaceship.addCrew(joe);
-		mySpaceship.addCrew(bob);
-		System.out.print("My Spaceship " + mySpaceship.getName() + " has " + mySpaceship.getShield() + " Shield.\n");
-		System.out.print("The Crew are:\n" + mySpaceship.getCrew());
-	}
-
+	
+	/**
+	 * Returns the crew member in the list of crew members.
+	 * @param i index of the crew member in the crew ArrayList
+	 * @return the crew member in the ArrayList specified by the index
+	 */
 	public Crew getCrewMember(int i) {
 		return this.crew.get(i);
 	}

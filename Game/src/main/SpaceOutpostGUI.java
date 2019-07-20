@@ -9,10 +9,11 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class SpaceOutpostGUI {
 
-	private JFrame frame;
+	private JFrame frmSpaceOutpost;
 	private JTextField outpostTextField;
 	private JLabel lblCurrentMoney;
 	private JLabel lblOutpost;
@@ -26,18 +27,15 @@ public class SpaceOutpostGUI {
 		money = mySpaceship.getMoney();
 		moneyStr = Integer.toString(money);
 		initialize();
-		frame.setVisible(true);
+		frmSpaceOutpost.setVisible(true);
 	}
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					SpaceOutpostGUI window = new SpaceOutpostGUI();
-					window.frame.setVisible(true);
+					window.frmSpaceOutpost.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,27 +54,31 @@ public class SpaceOutpostGUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 957, 547);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmSpaceOutpost = new JFrame();
+		frmSpaceOutpost.setTitle("Space Outpost");
+		frmSpaceOutpost.setBounds(100, 100, 957, 547);
+		frmSpaceOutpost.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmSpaceOutpost.getContentPane().setLayout(null);
 		
 		JTextArea outpostTextArea = new JTextArea();
+		outpostTextArea.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 15));
 		outpostTextArea.setText("                             Items for sale\r\n\r\n1. Pizza (Effect: reduces hunger by 20. Price: 20)\r\n2. Diazepam (Effect: heals user by 20. Price: 20)\r\n3. Plague Medicine (Effect: cures space plague. Price: 50\");\r\n");
 		outpostTextArea.setEditable(false);
 		outpostTextArea.setBounds(10, 11, 560, 220);
-		frame.getContentPane().add(outpostTextArea);
+		frmSpaceOutpost.getContentPane().add(outpostTextArea);
 		
 		lblOutpost = new JLabel("PLease enter the number of item you wish to purchae");
+		lblOutpost.setFont(new Font("Verdana", Font.PLAIN, 12));
 		lblOutpost.setBounds(126, 242, 347, 33);
-		frame.getContentPane().add(lblOutpost);
+		frmSpaceOutpost.getContentPane().add(lblOutpost);
 		
 		outpostTextField = new JTextField();
 		outpostTextField.setBounds(164, 351, 117, 33);
-		frame.getContentPane().add(outpostTextField);
+		frmSpaceOutpost.getContentPane().add(outpostTextField);
 		outpostTextField.setColumns(10);
 		
-		JButton btnPurchase = new JButton("purchase");
+		JButton btnPurchase = new JButton("Purchase");
+		btnPurchase.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 12));
 		btnPurchase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String itemNumStr = outpostTextField.getText();
@@ -85,29 +87,32 @@ public class SpaceOutpostGUI {
 				money = mySpaceship.getMoney();
 				moneyStr = Integer.toString(money);
 				lblCurrentMoney.setText("Current money: " + moneyStr);
-				txtCurrentInventory.setText(mySpaceship.getInventory());
+				txtCurrentInventory.setText("Current Inventory: \n" + mySpaceship.getInventory());
 			}
 		});
 		btnPurchase.setBounds(164, 408, 132, 33);
-		frame.getContentPane().add(btnPurchase);
+		frmSpaceOutpost.getContentPane().add(btnPurchase);
 		
-		JButton btnQuit = new JButton("quit");
+		JButton btnQuit = new JButton("Quit");
+		btnQuit.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 11));
 		btnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				frmSpaceOutpost.dispose();
 			}
 		});
 		btnQuit.setBounds(412, 408, 125, 33);
-		frame.getContentPane().add(btnQuit);
+		frmSpaceOutpost.getContentPane().add(btnQuit);
 		
 		lblCurrentMoney = new JLabel("Current money: " + moneyStr);
+		lblCurrentMoney.setFont(new Font("Verdana", Font.PLAIN, 12));
 		lblCurrentMoney.setBounds(58, 285, 211, 44);
-		frame.getContentPane().add(lblCurrentMoney);
+		frmSpaceOutpost.getContentPane().add(lblCurrentMoney);
 		
 		txtCurrentInventory = new JTextArea();
-		txtCurrentInventory.setText(mySpaceship.getInventory());
+		txtCurrentInventory.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 13));
+		txtCurrentInventory.setText("Current Inventory: \n" + mySpaceship.getInventory());
 		txtCurrentInventory.setBounds(592, 11, 339, 486);
-		frame.getContentPane().add(txtCurrentInventory);
+		frmSpaceOutpost.getContentPane().add(txtCurrentInventory);
 	}
 
 }

@@ -8,27 +8,25 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class CrewStatusGUI {
 
-	private JFrame frame;
+	private JFrame frmE;
 	private String status;
 	
 	public CrewStatusGUI(String crewStatus) {
 		status = crewStatus;
 		initialize();
-		frame.setVisible(true);
+		frmE.setVisible(true);
 	}
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					CrewStatusGUI window = new CrewStatusGUI();
-					window.frame.setVisible(true);
+					window.frmE.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,24 +45,27 @@ public class CrewStatusGUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 487, 361);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmE = new JFrame();
+		frmE.setTitle("Crew member status");
+		frmE.setBounds(100, 100, 487, 361);
+		frmE.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmE.getContentPane().setLayout(null);
 		
 		JTextArea crewStatusTextArea = new JTextArea();
+		crewStatusTextArea.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 13));
 		crewStatusTextArea.setEditable(false);
 		crewStatusTextArea.setText(status);
 		crewStatusTextArea.setBounds(10, 11, 451, 246);
-		frame.getContentPane().add(crewStatusTextArea);
+		frmE.getContentPane().add(crewStatusTextArea);
 		
-		JButton btnExit = new JButton("quit");
+		JButton btnExit = new JButton("Quit");
+		btnExit.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 12));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				frmE.dispose();
 			}
 		});
 		btnExit.setBounds(190, 268, 89, 23);
-		frame.getContentPane().add(btnExit);
+		frmE.getContentPane().add(btnExit);
 	}
 }

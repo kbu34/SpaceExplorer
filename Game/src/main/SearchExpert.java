@@ -16,6 +16,7 @@ public class SearchExpert extends Crew {
 	
 	/**
 	 * Constructor for SearchExpert.
+	 * @param name of the crew member
 	 */
 	public SearchExpert(String name) {
 		super(name, health, shieldRepairValue, searchProficiency, healthRate, tirednessRate, itemEffectiveness);

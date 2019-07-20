@@ -16,6 +16,7 @@ public class Tank extends Crew {
 	
 	/**
 	 * Constructor for Tank.
+	 * @param name name of the crew member
 	 */
 	public Tank(String name) {
 		super(name, health, shieldRepairValue, searchProficiency, healthRate, tirednessRate, itemEffectiveness);

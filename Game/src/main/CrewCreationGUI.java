@@ -9,10 +9,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class CrewCreationGUI {
 
-	private JFrame frame;
+	private JFrame frmSpaceExplorer;
 	private JTextField crewTypeField1;
 	private JTextField memberNameField1;
 	private Game game;
@@ -33,22 +34,19 @@ public class CrewCreationGUI {
 		days = mainDays;
 		crewNum = memberNum;
 		initialize();
-		frame.setVisible(true);
+		frmSpaceExplorer.setVisible(true);
 	}
 	
 	public void closeWindow() {
-		frame.dispose();
+		frmSpaceExplorer.dispose();
 	}
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					CrewCreationGUI window = new CrewCreationGUI();
-					window.frame.setVisible(true);
+					window.frmSpaceExplorer.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -67,53 +65,62 @@ public class CrewCreationGUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 857, 533);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmSpaceExplorer = new JFrame();
+		frmSpaceExplorer.setTitle("Space Explorer");
+		frmSpaceExplorer.setBounds(100, 100, 857, 533);
+		frmSpaceExplorer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmSpaceExplorer.getContentPane().setLayout(null);
 		
 		JLabel lblCrewType = new JLabel("Please enter the type of crew you want.\r\n");
-		lblCrewType.setBounds(10, 11, 339, 34);
-		frame.getContentPane().add(lblCrewType);
+		lblCrewType.setFont(new Font("Verdana", Font.PLAIN, 12));
+		lblCrewType.setBounds(10, 36, 339, 34);
+		frmSpaceExplorer.getContentPane().add(lblCrewType);
 		
 		JLabel lblTank = new JLabel("1. Tank (Has more health)");
-		lblTank.setBounds(10, 36, 303, 34);
-		frame.getContentPane().add(lblTank);
+		lblTank.setFont(new Font("Verdana", Font.PLAIN, 12));
+		lblTank.setBounds(10, 64, 303, 34);
+		frmSpaceExplorer.getContentPane().add(lblTank);
 		
 		JLabel lblConsumer = new JLabel("2. Consumer (benefits more from items)");
-		lblConsumer.setBounds(10, 64, 339, 34);
-		frame.getContentPane().add(lblConsumer);
+		lblConsumer.setFont(new Font("Verdana", Font.PLAIN, 12));
+		lblConsumer.setBounds(10, 92, 339, 34);
+		frmSpaceExplorer.getContentPane().add(lblConsumer);
 		
 		JLabel lblRepairExpert = new JLabel("3. Repair expert (better at repairing the ship)");
-		lblRepairExpert.setBounds(10, 91, 324, 34);
-		frame.getContentPane().add(lblRepairExpert);
+		lblRepairExpert.setFont(new Font("Verdana", Font.PLAIN, 12));
+		lblRepairExpert.setBounds(10, 121, 324, 34);
+		frmSpaceExplorer.getContentPane().add(lblRepairExpert);
 		
 		JLabel lblSearchExpert = new JLabel("4. Search expert (better at searching)");
-		lblSearchExpert.setBounds(10, 119, 303, 25);
-		frame.getContentPane().add(lblSearchExpert);
+		lblSearchExpert.setFont(new Font("Verdana", Font.PLAIN, 12));
+		lblSearchExpert.setBounds(10, 155, 303, 25);
+		frmSpaceExplorer.getContentPane().add(lblSearchExpert);
 		
 		JLabel lblGnome = new JLabel("5. Gnome (immune to plague)");
-		lblGnome.setBounds(10, 136, 303, 34);
-		frame.getContentPane().add(lblGnome);
+		lblGnome.setFont(new Font("Verdana", Font.PLAIN, 12));
+		lblGnome.setBounds(10, 179, 303, 34);
+		frmSpaceExplorer.getContentPane().add(lblGnome);
 		
 		JLabel lblInsomiac = new JLabel("6. Insomniac (doesn't get tired easily)");
-		lblInsomiac.setBounds(10, 164, 303, 34);
-		frame.getContentPane().add(lblInsomiac);
+		lblInsomiac.setFont(new Font("Verdana", Font.PLAIN, 12));
+		lblInsomiac.setBounds(10, 211, 303, 34);
+		frmSpaceExplorer.getContentPane().add(lblInsomiac);
 		
 		crewTypeField1 = new JTextField();
 		crewTypeField1.setText("member 1");
-		crewTypeField1.setBounds(43, 209, 176, 25);
-		frame.getContentPane().add(crewTypeField1);
+		crewTypeField1.setBounds(43, 256, 176, 25);
+		frmSpaceExplorer.getContentPane().add(crewTypeField1);
 		crewTypeField1.setColumns(10);
 		
 		JLabel lblPleaseEnterThe = new JLabel("Please enter the name for the crew member.");
+		lblPleaseEnterThe.setFont(new Font("Verdana", Font.PLAIN, 12));
 		lblPleaseEnterThe.setBounds(461, 164, 324, 34);
-		frame.getContentPane().add(lblPleaseEnterThe);
+		frmSpaceExplorer.getContentPane().add(lblPleaseEnterThe);
 		
 		memberNameField1 = new JTextField();
 		memberNameField1.setText("member 1");
 		memberNameField1.setBounds(499, 220, 202, 25);
-		frame.getContentPane().add(memberNameField1);
+		frmSpaceExplorer.getContentPane().add(memberNameField1);
 		memberNameField1.setColumns(10);
 		
 		JButton btnCrewCreation = new JButton("Enter");
@@ -198,56 +205,58 @@ public class CrewCreationGUI {
 				}
 			}
 		});
-		btnCrewCreation.setBounds(345, 406, 166, 40);
-		frame.getContentPane().add(btnCrewCreation);
+		btnCrewCreation.setBounds(522, 402, 166, 40);
+		frmSpaceExplorer.getContentPane().add(btnCrewCreation);
 		
 		crewTypeField2 = new JTextField();
 		crewTypeField2.setText("member 2");
-		crewTypeField2.setBounds(43, 245, 176, 25);
-		frame.getContentPane().add(crewTypeField2);
+		crewTypeField2.setBounds(43, 292, 176, 25);
+		frmSpaceExplorer.getContentPane().add(crewTypeField2);
 		crewTypeField2.setColumns(10);
 		
 		crewTypeField3 = new JTextField();
 		crewTypeField3.setText("member 3");
-		crewTypeField3.setBounds(43, 281, 176, 25);
-		frame.getContentPane().add(crewTypeField3);
+		crewTypeField3.setBounds(43, 328, 176, 25);
+		frmSpaceExplorer.getContentPane().add(crewTypeField3);
 		crewTypeField3.setColumns(10);
 		
 		crewTypeField4 = new JTextField();
 		crewTypeField4.setText("member 4");
-		crewTypeField4.setBounds(43, 317, 176, 25);
-		frame.getContentPane().add(crewTypeField4);
+		crewTypeField4.setBounds(43, 364, 176, 25);
+		frmSpaceExplorer.getContentPane().add(crewTypeField4);
 		crewTypeField4.setColumns(10);
 		
 		memberNameField2 = new JTextField();
 		memberNameField2.setText("member 2");
 		memberNameField2.setBounds(499, 261, 202, 25);
-		frame.getContentPane().add(memberNameField2);
+		frmSpaceExplorer.getContentPane().add(memberNameField2);
 		memberNameField2.setColumns(10);
 		
 		memberNameField3 = new JTextField();
 		memberNameField3.setText("member 3");
 		memberNameField3.setBounds(499, 297, 202, 25);
-		frame.getContentPane().add(memberNameField3);
+		frmSpaceExplorer.getContentPane().add(memberNameField3);
 		memberNameField3.setColumns(10);
 		
 		memberNameField4 = new JTextField();
 		memberNameField4.setText("member 4");
 		memberNameField4.setBounds(499, 333, 202, 25);
-		frame.getContentPane().add(memberNameField4);
+		frmSpaceExplorer.getContentPane().add(memberNameField4);
 		memberNameField4.setColumns(10);
 		
 		lblSpaceshipName = new JLabel("Please enter the name of your spaceship");
-		lblSpaceshipName.setBounds(430, 16, 386, 24);
-		frame.getContentPane().add(lblSpaceshipName);
+		lblSpaceshipName.setFont(new Font("Verdana", Font.PLAIN, 12));
+		lblSpaceshipName.setBounds(430, 16, 389, 41);
+		frmSpaceExplorer.getContentPane().add(lblSpaceshipName);
 		
 		spaceshipNameField = new JTextField();
 		spaceshipNameField.setBounds(451, 68, 294, 27);
-		frame.getContentPane().add(spaceshipNameField);
+		frmSpaceExplorer.getContentPane().add(spaceshipNameField);
 		spaceshipNameField.setColumns(10);
 		
 		lblWarning = new JLabel("");
-		lblWarning.setBounds(116, 353, 324, 34);
-		frame.getContentPane().add(lblWarning);
+		lblWarning.setFont(new Font("Verdana", Font.BOLD, 15));
+		lblWarning.setBounds(147, 408, 324, 34);
+		frmSpaceExplorer.getContentPane().add(lblWarning);
 	}
 }

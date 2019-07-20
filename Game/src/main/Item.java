@@ -28,6 +28,8 @@ public class Item {
 	
 	/**
 	 * Uses the item.
+	 * @param member crew member using the item
+	 * @param mySpaceship the spaceship that has the item
 	 */
 	public void useItem(Crew member, Spaceship mySpaceship){
 		if (this instanceof Food) {
@@ -49,6 +51,8 @@ public class Item {
 	
 	/**
 	 * Buying the item from the shop.
+	 * @param mySpaceship the spaceship the item is going to
+	 * @return true if item bought successfully false other wise
 	 */
 	public boolean buyItem(Spaceship mySpaceship){
 		if (this.value < mySpaceship.getMoney()) {
@@ -84,10 +88,4 @@ public class Item {
 		this.value = newValue;
 	}
 	
-	/**
-	 * returns the name of the item.
-	 */
-	public String toString(){
-		return name;
-	}
 }

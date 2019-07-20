@@ -21,7 +21,7 @@ public class Medicine extends Item{
 	
 	/**
 	 * Returns healing amount of medicine.
-	 * 
+	 * @return the amount this medicine heals
 	 */
 	public int getHeal() {
 		return this.healAmount;

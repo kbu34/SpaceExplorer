@@ -30,9 +30,9 @@ public class Crew {
 	 * @param health health of the crew member
 	 * @param shieldRepairValue value of how much shield a crew member can repair at a time
 	 * @param searchProficiency value of how good a crew member is at searching for items
-	 * @param healthRate 
-	 * @param tirednessRate
-	 * @param itemEffectiveness
+	 * @param healthRate value of how much additional health the crew member recovers when healing
+	 * @param tirednessRate value of how fast the crew member gets tired
+	 * @param itemEffectiveness value of how much effect items have on the crew member
 	 */
 	public Crew(String name, int health, int shieldRepairValue, int searchProficiency, int healthRate, int tirednessRate, int itemEffectiveness) {
 		
@@ -54,7 +54,7 @@ public class Crew {
 	
 	/**
 	 * Lets the player view the status of the spaceship and crew members.
-	 * 
+	 * @return status
 	 */
 	public String viewStatus(){
 		String stringHealth = Integer.toString(this.health);
@@ -66,17 +66,19 @@ public class Crew {
 
 	/**
 	 * Increases the ship's shield level. Decrease member actions by one.
+	 * @param mySpaceship the spaceship
 	 */
 	public void repair(Spaceship mySpaceship){
 		mySpaceship.setShield(mySpaceship.getShield() + this.shieldRepairValue);
 		this.actions -= 1;
-		return;
 	}
 	
 	/**
 	 * Sends a crew member for searching. Decrease member actions by one.
-	 * 
 	 * A crew member may find food or medical item, transporter part, money or nothing
+	 * @return description of the item found
+	 * @param mySpaceship the spaceship
+	 * @param game current game
 	 */
 	public String search(Spaceship mySpaceship, Game game){
 		String found = "";
@@ -94,7 +96,7 @@ public class Crew {
 				Pie pie = new Pie();
 				mySpaceship.addItem(pie);
 				System.out.println("pie found");
-				found = "pie found";
+				found = "Pie found";
 			} else if (i == 4 || i == 5) {
 				Apple apple = new Apple();
 				mySpaceship.addItem(apple);
@@ -104,24 +106,24 @@ public class Crew {
 				PorkChops porkChops = new PorkChops();
 				mySpaceship.addItem(porkChops);
 				System.out.println("pork chops found");
-				found = "pork chops found";
+				found = "Pork chops found";
 			} else if (i == 7) {
 				Paracetamol paracetamol = new Paracetamol();
 				mySpaceship.addItem(paracetamol);
 				System.out.println("paracetamol found");
-				found = "paracetamol found";
+				found = "Paracetamol found";
 			} else if (i == 8 || i == 9 || i == 10) {
 				Codeine codeine = new Codeine();
 				mySpaceship.addItem(codeine);
 				System.out.println("codeine found");
-				found = "codeine found";
-			} else if (game.getPartFound() == true && i == 9 || i == 10 || i == 11) {
+				found = "Codeine found";
+			} else if (game.getPartFound() == false && i == 9 || i == 10 || i == 11 || i == 12) {
 				game.partFound();
 				System.out.println("transporter piece found");
-				found ="transporter piece found";
+				found = "Transporter Piece found!";
 			} else {
 				System.out.println("you found nothing");
-				found = "you found nothing";
+				found = "You found nothing";
 			}
 			this.actions -= 1;
 		} else {
@@ -133,8 +135,9 @@ public class Crew {
 	
 	/**
 	 * Changes the location of the spaceship. Decrease member actions by one.
-	 * 
 	 * Two crew members are required, set piloting of the two crew members to true and decrease action count, change location.
+	 * @param other the other co-pilot
+	 * @param game current game
 	 */
 	public void pilot(Crew other, Game game){
 		if (this.actions > 0 && other.actions > 0) {
@@ -163,6 +166,8 @@ public class Crew {
 	
 	/**
 	 * Let the player choose what item to use, use the item. Decrease member actions by one.
+	 * @param item the item selected
+	 * @param mySpaceship the spaceship
 	 */
 	public void consumeItem(Item item, Spaceship mySpaceship) {
 		if (this.actions > 0) {
@@ -189,7 +194,7 @@ public class Crew {
 	
 	/**
 	 * Checks if a crew member is sick.
-	 * 
+	 * @return if the crew member is sick or not
 	 */
 	public boolean getSickness() {
 		return this.sick;
@@ -203,13 +208,17 @@ public class Crew {
 		return this.health;
 	}
 	
+	/**
+	 * Returns item effectiveness.
+	 * @return item effectiveness of the crew member.
+	 */
 	public int getItemEffetive() {
 		return this.itemEffectiveness;
 	}
 	
 	/**
 	 * Does damage to a crew member.
-	 * They die if their health drops below 0.
+	 * Crew members die if their health drops below 0.
 	 * @param damage damage taken by crew member
 	 * @param mySpaceship the spaceship
 	 */
@@ -234,7 +243,7 @@ public class Crew {
 	 * Returns tiredness of the crew member.
 	 * @return tiredness tiredness of the crew member
 	 */
-	public int getFatigue(){
+	public int getTiredness(){
 		return tiredness;
 	}
 	
@@ -247,7 +256,6 @@ public class Crew {
 		if (this.tiredness < 0) {
 			this.tiredness = 0;
 		}
-		return;
 	}
 	
 	/**
@@ -259,7 +267,7 @@ public class Crew {
 	
 	/**
 	 * Returns the number of actions a crew member has left.
-	 * @return
+	 * @return the number of actions left of the crew member
 	 */
 	public int getActions() {
 		return this.actions;
@@ -267,16 +275,24 @@ public class Crew {
 	
 	/**
 	 * Returns the crew member's name.
-	 * @return
+	 * @return the name of the crew member
 	 */
 	public String getName() {
 		return this.name;
 	}
 	
+	/**
+	 * returns the hunger level of the crew member.
+	 * @return The hunger level of the crew member.
+	 */
 	public int getHunger() {
 		return this.hunger;
 	}
 	
+	/**
+	 * Sets the crew member's hunger level according to change.
+	 * @param newHunger The new hunger level calculated.
+	 */
 	public void setHunger(int newHunger) {
 		this.hunger = newHunger;
 	}

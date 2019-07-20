@@ -7,6 +7,7 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class PlagueAlertGUI {
 
@@ -21,9 +22,6 @@ public class PlagueAlertGUI {
 		frame.setVisible(true);
 	}
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -50,15 +48,17 @@ public class PlagueAlertGUI {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JTextArea txtrPlague = new JTextArea();
+		txtrPlague.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 13));
 		txtrPlague.setText("     WARNING\nSpace plague encountered.\n" + mySpaceship.crewGetter(crew).getName() + " was infected.");
 		txtrPlague.setBounds(10, 11, 414, 161);
 		frame.getContentPane().add(txtrPlague);
 		
-		JButton btnQuit = new JButton("confirm");
+		JButton btnQuit = new JButton("Confirm");
+		btnQuit.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 12));
 		btnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();

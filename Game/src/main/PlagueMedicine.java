@@ -3,7 +3,7 @@ package main;
 public class PlagueMedicine extends Medicine {
 	
 	public PlagueMedicine() {
-		super("plagueMedicine", 50);
+		super("Plague Medicine", 50);
 	}
 
 }

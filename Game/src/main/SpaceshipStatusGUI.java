@@ -7,10 +7,11 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class SpaceshipStatusGUI {
 
-	private JFrame frame;
+	private JFrame frmSpaceshipStatus;
 	private String status;
 	private Game game;
 	
@@ -18,18 +19,15 @@ public class SpaceshipStatusGUI {
 		status = shipStatus;
 		game = mainGame;
 		initialize();
-		frame.setVisible(true);
+		frmSpaceshipStatus.setVisible(true);
 	}
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					SpaceshipStatusGUI window = new SpaceshipStatusGUI();
-					window.frame.setVisible(true);
+					window.frmSpaceshipStatus.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,25 +46,28 @@ public class SpaceshipStatusGUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 674, 364);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmSpaceshipStatus = new JFrame();
+		frmSpaceshipStatus.setTitle("Spaceship Status");
+		frmSpaceshipStatus.setBounds(100, 100, 674, 364);
+		frmSpaceshipStatus.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmSpaceshipStatus.getContentPane().setLayout(null);
 		
 		JTextArea txtSpaceshipStatus = new JTextArea();
+		txtSpaceshipStatus.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 13));
 		txtSpaceshipStatus.setEditable(false);
-		txtSpaceshipStatus.setText(status + "\n" + "Transporter Pieces: " + game.getPartsAquired() + "out of " + game.getTotalParts());
+		txtSpaceshipStatus.setText(status + "\n" + "Transporter Pieces: " + game.getPartsAquired() + " out of " + game.getTotalParts());
 		txtSpaceshipStatus.setBounds(10, 11, 638, 254);
-		frame.getContentPane().add(txtSpaceshipStatus);
+		frmSpaceshipStatus.getContentPane().add(txtSpaceshipStatus);
 		
-		JButton btnQuit = new JButton("quit");
+		JButton btnQuit = new JButton("Quit");
+		btnQuit.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 12));
 		btnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				frmSpaceshipStatus.dispose();
 			}
 		});
 		btnQuit.setBounds(257, 276, 101, 39);
-		frame.getContentPane().add(btnQuit);
+		frmSpaceshipStatus.getContentPane().add(btnQuit);
 	}
 
 }
